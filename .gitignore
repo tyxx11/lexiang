@@ -16,10 +16,6 @@ buildNumber.properties
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion
 
 #tempignore
-cdckinesis/src/main/filters/dev.properties
-cdckinesis/src/main/filters/prod.properties
-cdckinesis/src/main/filters/local.properties
-cdc-job/lib/glue-assembly.jar
 
 *.iml
 
