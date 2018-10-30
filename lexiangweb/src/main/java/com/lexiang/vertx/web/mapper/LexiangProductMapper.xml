@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lexiang.vertx.web.mapper.LexiangProductMapper" >
+  <resultMap id="BaseResultMap" type="com.lexiang.vertx.web.entity.LexiangProduct" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="intro" property="intro" jdbcType="VARCHAR" />
+    <result column="createdate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="modifydate" property="modifydate" jdbcType="TIMESTAMP" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="days" property="days" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lexiang_product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lexiang.vertx.web.entity.LexiangProduct" useGeneratedKeys="true" keyProperty="id" >
+    insert into lexiang_product (title, intro, createdate, 
+      modifydate, address, days, 
+      price, status)
+    values (#{title,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{modifydate,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, #{days,jdbcType=INTEGER}, 
+      #{price,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lexiang.vertx.web.entity.LexiangProduct" >
+    update lexiang_product
+    set title = #{title,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=VARCHAR},
+      createdate = #{createdate,jdbcType=TIMESTAMP},
+      modifydate = #{modifydate,jdbcType=TIMESTAMP},
+      address = #{address,jdbcType=VARCHAR},
+      days = #{days,jdbcType=INTEGER},
+      price = #{price,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, title, intro, createdate, modifydate, address, days, price, status
+    from lexiang_product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, title, intro, createdate, modifydate, address, days, price, status
+    from lexiang_product
+  </select>
+</mapper>

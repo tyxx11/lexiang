@@ -8,19 +8,14 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/lexiang?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
+                <property name="url" value="jdbc:mysql://xxx/lexiang?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
                 <property name="username" value="root"/>
-                <property name="password" value="123456"/>
+                <property name="password" value="xxxx"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
-        <mapper class="com.starlight.bi.datalineage.mapper.FieldDictMapper"/>
-        <mapper class="com.starlight.bi.datalineage.mapper.TableDictMapper"/>
-        <mapper class="com.starlight.bi.datalineage.mapper.JobDictMapper"/>
-        <mapper class="com.starlight.bi.datalineage.mapper.TableLineageMapper"/>
-        <mapper class="com.starlight.bi.datalineage.mapper.FieldLineageMapper"/>
-        <mapper class="com.starlight.bi.datalineage.mapper.JobLineageMapper"/>
-        <mapper class="com.starlight.bi.datalineage.mapper.JobTableRefMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.LexiangProductMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.PhotosMapper"/>
     </mappers>
 </configuration>
