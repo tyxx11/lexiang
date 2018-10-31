@@ -3,6 +3,7 @@ package com.lexiang.vertx.web.resource;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Maps;
 import com.lexiang.vertx.web.entity.LexiangProduct;
 import com.lexiang.vertx.web.service.ProductService;
 import io.vertx.core.json.JsonObject;
@@ -17,12 +18,15 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 @Singleton
 @Path("/lexiangproduct")
 public class ProductResource {
     private final Logger LOG = LoggerFactory.getLogger(ProductResource.class);
     String photoUploadPath = "/home/wills/";
+    String picPreFix = "< lexiangpic: ";
+    String picEndFix = " >";
 
     @Inject
     ProductService productService;
@@ -64,7 +68,10 @@ public class ProductResource {
         FileUpload fileUpload = (FileUpload) ctx.fileUploads().toArray()[0];
         File file = new File(fileUpload.uploadedFileName());
         file.renameTo(new File(photoUploadPath + fileUpload.fileName()));
-        ctx.response().end("file uploaded");
+        Map<String,String> map = Maps.newHashMap();
+        map.put("error Message", "file uploaded");
+        map.put("pic path", picPreFix + photoUploadPath + fileUpload.fileName() + picEndFix);
+        ctx.response().end(JSON.toJSONString(map));
     }
 
     @POST
