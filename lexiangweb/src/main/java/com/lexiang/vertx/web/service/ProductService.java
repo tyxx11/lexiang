@@ -26,4 +26,9 @@ public class ProductService {
     public int deteleProduct(int id){
         return  productMapper.deleteByPrimaryKey(id);
     }
+
+    public List<LexiangProduct> getBy(LexiangProduct product){
+        //todo changed to where select
+        return productMapper.selectAll();
+    }
 }
