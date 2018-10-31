@@ -2,23 +2,28 @@ package com.lexiang.vertx.web.resource;
 
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.lexiang.vertx.web.entity.LexiangProduct;
 import com.lexiang.vertx.web.service.ProductService;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.web.FileUpload;
 import io.vertx.ext.web.RoutingContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.File;
 import java.util.List;
 
 @Singleton
 @Path("/lexiangproduct")
 public class ProductResource {
+    private final Logger LOG = LoggerFactory.getLogger(ProductResource.class);
+    String photoUploadPath = "/home/wills/";
+
     @Inject
     ProductService productService;
 
@@ -42,6 +47,39 @@ public class ProductResource {
     public void getProductAll(RoutingContext ctx) {
         List<LexiangProduct> lexiangProductList = productService.getAll();
         ctx.response().end(JSON.toJSONString(lexiangProductList));
+    }
+
+    @POST
+    @Path("uploadphotos")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public void fileUpload(RoutingContext ctx){
+        JSONObject resJson = new JSONObject();
+        if(ctx.fileUploads() == null || ctx.fileUploads().isEmpty()){
+            resJson.put("error code", "201");
+            resJson.put("error msg", "请上传文件");
+            LOG.info("上传文件失败，请上传文件");
+            ctx.response().end(resJson.toJSONString());
+            return;
+        }
+        FileUpload fileUpload = (FileUpload) ctx.fileUploads().toArray()[0];
+        File file = new File(fileUpload.uploadedFileName());
+        file.renameTo(new File(photoUploadPath + fileUpload.fileName()));
+        ctx.response().end("file uploaded");
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void getPhotos(RoutingContext ctx){
+        JsonObject json = ctx.getBodyAsJson();
+        String file = json.getString("filePath");
+        ctx.response().sendFile(file);
+    }
+
+    @DELETE
+    @Path("deleteProduct/:id")
+    public void deleteProduct(RoutingContext ctx){
+        productService.deteleProduct(Integer.parseInt(ctx.request().getParam("id")));
+        ctx.response().end("delete ok!");
     }
 
 }

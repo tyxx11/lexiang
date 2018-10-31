@@ -22,4 +22,8 @@ public class ProductService {
     public List<LexiangProduct> getAll(){
         return productMapper.selectAll();
     }
+
+    public int deteleProduct(int id){
+        return  productMapper.deleteByPrimaryKey(id);
+    }
 }
