@@ -13,4 +13,6 @@ public interface PhotosMapper {
     List<Photos> selectAll();
 
     int updateByPrimaryKey(Photos record);
+
+    List<Photos> selectByCon(Photos record);
 }

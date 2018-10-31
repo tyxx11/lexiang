@@ -28,7 +28,6 @@ public class ProductService {
     }
 
     public List<LexiangProduct> getBy(LexiangProduct product){
-        //todo changed to where select
-        return productMapper.selectAll();
+        return productMapper.selectByCon(product);
     }
 }

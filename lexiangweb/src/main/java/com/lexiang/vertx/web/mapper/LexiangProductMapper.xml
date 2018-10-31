@@ -45,4 +45,11 @@
     select id, title, intro, createdate, modifydate, address, days, price, status
     from lexiang_product
   </select>
+  <select id="selectByCon" parameterType="com.lexiang.vertx.web.entity.LexiangProduct" resultMap="BaseResultMap" >
+    select id, title, intro, createdate, modifydate, address, days, price, status
+    from lexiang_product
+    <if test="status!= null" >
+      where status = #{status,jdbcType=INTEGER}
+    </if>
+  </select>
 </mapper>

@@ -13,4 +13,6 @@ public interface LexiangProductMapper {
     List<LexiangProduct> selectAll();
 
     int updateByPrimaryKey(LexiangProduct record);
+
+    List<LexiangProduct> selectByCon(LexiangProduct record);
 }

@@ -37,4 +37,14 @@
     select id, name, status, path, attribute, description
     from photos
   </select>
+  <select id="selectByCon" parameterType="com.lexiang.vertx.web.entity.Photos" resultMap="BaseResultMap" >
+    select id, name, status, path, attribute, description
+    from photos
+    <if test="status!= null" >
+      where status = #{status,jdbcType=INTEGER}
+    </if>
+    <if test="attribute!= null" >
+      and attribute = #{attribute,jdbcType=INTEGER}
+    </if>
+  </select>
 </mapper>
