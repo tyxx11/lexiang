@@ -18,3 +18,47 @@ create table photos(
   attribute int,
   description varchar(128)
 );
+
+create table static_pages(
+  id int primary key auto_increment,
+  about_us_page varchar(21845),
+  home_page varchar(21845),
+  time_stamp timestamp,
+  status int
+);
+
+create table home_page_content(){
+  id int primary key auto_increment,
+  div_top varchar(21845),
+  div_mid varchar(21845),
+  div_bot varchar(21845),
+  time_stamp timestamp,
+  status int
+}
+
+create table system_setting(){
+  id int primary key auto_increment,
+  log1 varchar(128),
+  log2 varchar(128),
+  tel_num varchar(64),
+  address varchar(128),
+  company_name varchar(128),
+  time_stamp timestamp
+}
+
+create table navigator(){
+  id int primary key auto_increment,
+  name varchar(64),
+  parent_name(64),
+  attribute int,
+  time_stamp timestamp,
+  status int
+}
+
+create table lunbo(){
+  id int primary key auto_increment,
+  photo_address varchar(128),
+  attribute int,
+  time_stamp timestamp,
+  status int
+}

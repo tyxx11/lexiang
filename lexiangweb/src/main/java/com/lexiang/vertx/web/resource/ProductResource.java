@@ -28,6 +28,7 @@ public class ProductResource {
     String picPreFix = "< lexiangpic: ";
     String picEndFix = " >";
 
+
     @Inject
     ProductService productService;
 

@@ -26,8 +26,7 @@
 
         <!-- 必须要有的，使用这个配置链接数据库 @TODO:是否可以扩展 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://xxx/lexiang" userId="root" password="xxx">
-            <!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 -->
+                        connectionURL="jdbc:mysql://xx:3306/lexiang" userId="root" password="xxx">            <!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 -->
         </jdbcConnection>
 
         <!-- java类型处理器 用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl； 注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和
@@ -77,16 +76,22 @@
                 value=""/> -->
         </javaClientGenerator>
         <!-- 这个标签规定了要自动生成哪张表的mapper -->
-        <table tableName="lexiang_product">
-            <!-- 参考 javaModelGenerator 的 constructorBased属性 -->
+       <!-- <table tableName="lexiang_product">
+            &lt;!&ndash; 参考 javaModelGenerator 的 constructorBased属性 &ndash;&gt;
             <property name="constructorBased" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
         <table tableName="photos">
+            &lt;!&ndash; 参考 javaModelGenerator 的 constructorBased属性 &ndash;&gt;
+            <property name="constructorBased" value="false" />
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+        <table tableName="static_pages">
             <!-- 参考 javaModelGenerator 的 constructorBased属性 -->
             <property name="constructorBased" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
+
 
     </context>
 

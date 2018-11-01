@@ -17,5 +17,6 @@
     <mappers>
         <mapper class="com.lexiang.vertx.web.mapper.LexiangProductMapper"/>
         <mapper class="com.lexiang.vertx.web.mapper.PhotosMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.StaticPagesMapper"/>
     </mappers>
 </configuration>
