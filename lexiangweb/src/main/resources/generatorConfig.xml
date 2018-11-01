@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <context id="mysql" defaultModelType="hierarchical"
-             targetRuntime="MyBatis3Simple">
+             targetRuntime="MyBatis3">
         <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表； 一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖 -->
         <property name="autoDelimitKeywords" value="false" />
         <!-- 生成的Java文件的编码  可以自己去寫格式 -->
@@ -26,7 +26,7 @@
 
         <!-- 必须要有的，使用这个配置链接数据库 @TODO:是否可以扩展 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://xxx:3306/lexiang" userId="root" password="xxx">
+                        connectionURL="jdbc:mysql://xxx/lexiang" userId="root" password="xxx">
             <!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 -->
         </jdbcConnection>
 

@@ -1,6 +1,8 @@
 package com.lexiang.vertx.web.service;
 
 import com.lexiang.vertx.web.entity.LexiangProduct;
+import com.lexiang.vertx.web.entity.LexiangProductExample;
+import com.lexiang.vertx.web.entity.LexiangProductKey;
 import com.lexiang.vertx.web.mapper.LexiangProductMapper;
 
 import javax.inject.Inject;
@@ -20,14 +22,20 @@ public class ProductService {
     }
 
     public List<LexiangProduct> getAll(){
-        return productMapper.selectAll();
+        LexiangProductExample example = new LexiangProductExample();
+        example.createCriteria().getAllCriteria();
+        return productMapper.selectByExample(example);
     }
 
     public int deteleProduct(int id){
-        return  productMapper.deleteByPrimaryKey(id);
+        LexiangProductKey lexiangProductKey = new LexiangProductKey();
+        lexiangProductKey.setId(id);
+        return  productMapper.deleteByPrimaryKey(lexiangProductKey);
     }
 
     public List<LexiangProduct> getBy(LexiangProduct product){
-        return productMapper.selectByCon(product);
+        LexiangProductExample example = new LexiangProductExample();
+        example.createCriteria().andStatusEqualTo(product.getStatus());
+        return productMapper.selectByExample(example);
     }
 }

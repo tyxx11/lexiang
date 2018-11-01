@@ -1,6 +1,7 @@
 package com.lexiang.vertx.web.service;
 
 import com.lexiang.vertx.web.entity.Photos;
+import com.lexiang.vertx.web.entity.PhotosExample;
 import com.lexiang.vertx.web.mapper.PhotosMapper;
 import com.lexiang.vertx.web.utils.Commons;
 
@@ -12,8 +13,8 @@ public class PhotoService {
     PhotosMapper photosMapper;
 
     public List<Photos> getHomePagePics(){
-        Photos photos = new Photos();
-        photos.setStatus(Commons.pic_status_homepage);
-        return photosMapper.selectByCon(photos);
+        PhotosExample example = new PhotosExample();
+        example.createCriteria().andStatusEqualTo(Commons.pic_status_homepage);
+        return photosMapper.selectByExample(example);
     }
 }

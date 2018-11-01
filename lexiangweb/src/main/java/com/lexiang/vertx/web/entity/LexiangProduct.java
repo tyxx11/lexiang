@@ -2,9 +2,7 @@ package com.lexiang.vertx.web.entity;
 
 import java.util.Date;
 
-public class LexiangProduct {
-    private Integer id;
-
+public class LexiangProduct extends LexiangProductKey {
     private String title;
 
     private String intro;
@@ -20,14 +18,6 @@ public class LexiangProduct {
     private Integer price;
 
     private Integer status;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
