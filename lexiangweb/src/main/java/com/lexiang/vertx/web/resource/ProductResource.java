@@ -24,9 +24,6 @@ import java.util.Map;
 @Path("/lexiangproduct")
 public class ProductResource {
     private final Logger LOG = LoggerFactory.getLogger(ProductResource.class);
-    String photoUploadPath = "/home/wills/";
-    String picPreFix = "< lexiangpic: ";
-    String picEndFix = " >";
 
 
     @Inject
@@ -54,26 +51,7 @@ public class ProductResource {
         ctx.response().end(JSON.toJSONString(lexiangProductList));
     }
 
-    @POST
-    @Path("uploadphotos")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public void fileUpload(RoutingContext ctx){
-        JSONObject resJson = new JSONObject();
-        if(ctx.fileUploads() == null || ctx.fileUploads().isEmpty()){
-            resJson.put("error code", "201");
-            resJson.put("error msg", "请上传文件");
-            LOG.info("上传文件失败，请上传文件");
-            ctx.response().end(resJson.toJSONString());
-            return;
-        }
-        FileUpload fileUpload = (FileUpload) ctx.fileUploads().toArray()[0];
-        File file = new File(fileUpload.uploadedFileName());
-        file.renameTo(new File(photoUploadPath + fileUpload.fileName()));
-        Map<String,String> map = Maps.newHashMap();
-        map.put("error Message", "file uploaded");
-        map.put("pic path", picPreFix + photoUploadPath + fileUpload.fileName() + picEndFix);
-        ctx.response().end(JSON.toJSONString(map));
-    }
+
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
