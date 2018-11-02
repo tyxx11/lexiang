@@ -38,4 +38,5 @@ public class ProductService {
         example.createCriteria().andStatusEqualTo(product.getStatus());
         return productMapper.selectByExample(example);
     }
+
 }

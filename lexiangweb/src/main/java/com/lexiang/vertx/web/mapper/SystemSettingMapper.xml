@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lexiang.vertx.web.mapper.SystemSettingMapper" >
+  <resultMap id="BaseResultMap" type="com.lexiang.vertx.web.entity.SystemSetting" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="log1" property="log1" jdbcType="VARCHAR" />
+    <result column="log2" property="log2" jdbcType="VARCHAR" />
+    <result column="tel_num" property="telNum" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="time_stamp" property="timeStamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, log1, log2, tel_num, address, company_name, time_stamp
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lexiang.vertx.web.entity.SystemSettingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from system_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.lexiang.vertx.web.entity.SystemSettingKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_setting
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lexiang.vertx.web.entity.SystemSettingKey" >
+    delete from system_setting
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lexiang.vertx.web.entity.SystemSettingExample" >
+    delete from system_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lexiang.vertx.web.entity.SystemSetting" useGeneratedKeys="true" keyProperty="id" >
+    insert into system_setting (log1, log2, tel_num, 
+      address, company_name, time_stamp
+      )
+    values (#{log1,jdbcType=VARCHAR}, #{log2,jdbcType=VARCHAR}, #{telNum,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{timeStamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lexiang.vertx.web.entity.SystemSetting" useGeneratedKeys="true" keyProperty="id" >
+    insert into system_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="log1 != null" >
+        log1,
+      </if>
+      <if test="log2 != null" >
+        log2,
+      </if>
+      <if test="telNum != null" >
+        tel_num,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="timeStamp != null" >
+        time_stamp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="log1 != null" >
+        #{log1,jdbcType=VARCHAR},
+      </if>
+      <if test="log2 != null" >
+        #{log2,jdbcType=VARCHAR},
+      </if>
+      <if test="telNum != null" >
+        #{telNum,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="timeStamp != null" >
+        #{timeStamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lexiang.vertx.web.entity.SystemSettingExample" resultType="java.lang.Integer" >
+    select count(*) from system_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update system_setting
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.log1 != null" >
+        log1 = #{record.log1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.log2 != null" >
+        log2 = #{record.log2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telNum != null" >
+        tel_num = #{record.telNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeStamp != null" >
+        time_stamp = #{record.timeStamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update system_setting
+    set id = #{record.id,jdbcType=INTEGER},
+      log1 = #{record.log1,jdbcType=VARCHAR},
+      log2 = #{record.log2,jdbcType=VARCHAR},
+      tel_num = #{record.telNum,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      time_stamp = #{record.timeStamp,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lexiang.vertx.web.entity.SystemSetting" >
+    update system_setting
+    <set >
+      <if test="log1 != null" >
+        log1 = #{log1,jdbcType=VARCHAR},
+      </if>
+      <if test="log2 != null" >
+        log2 = #{log2,jdbcType=VARCHAR},
+      </if>
+      <if test="telNum != null" >
+        tel_num = #{telNum,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="timeStamp != null" >
+        time_stamp = #{timeStamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lexiang.vertx.web.entity.SystemSetting" >
+    update system_setting
+    set log1 = #{log1,jdbcType=VARCHAR},
+      log2 = #{log2,jdbcType=VARCHAR},
+      tel_num = #{telNum,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      time_stamp = #{timeStamp,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
