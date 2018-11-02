@@ -50,10 +50,11 @@ public class PhotoResource {
         }
         FileUpload fileUpload = (FileUpload) ctx.fileUploads().toArray()[0];
         File file = new File(fileUpload.uploadedFileName());
-        file.renameTo(new File(photoUploadPath + fileUpload.fileName()));
+        String fileName = photoUploadPath + prefix + "/" + fileUpload.fileName();
+        file.renameTo(new File(fileName));
         Map<String,String> map = Maps.newHashMap();
         map.put("error Message", "file uploaded");
-        map.put("pic path", photoUploadPath + prefix + "/" + fileUpload.fileName());
+        map.put("pic path", fileName);
         ctx.response().end(JSON.toJSONString(map));
     }
 }
