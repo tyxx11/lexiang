@@ -1,14 +1,21 @@
 create table lexiang_product(
   id int primary key auto_increment,
   title varchar(1024),
-  intro varchar(21845),
+  intro text,
   createdate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   modifydate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  address varchar(64),
+  target_address varchar(64),
   days int,
   price int,
-  status int
-);
+  status int,
+  traval_type int
+) DEFAULT CHARSET=utf8;
+
+create table trval_type(
+  id int primary key auto_increment,
+  type_name varchar(64)
+) DEFAULT CHARSET=utf8;
+
 
 create table photos(
   id int primary key auto_increment,
@@ -17,7 +24,7 @@ create table photos(
   path varchar(256),
   attribute int,
   description varchar(128)
-);
+) DEFAULT CHARSET=utf8;
 
 create table static_pages(
   id int primary key auto_increment,
@@ -25,7 +32,7 @@ create table static_pages(
   home_page varchar(21845),
   time_stamp timestamp,
   status int
-);
+) DEFAULT CHARSET=utf8;
 
 create table home_page_content(
   id int primary key auto_increment,
@@ -34,7 +41,7 @@ create table home_page_content(
   div_bot text(21845),
   time_stamp timestamp,
   status int
-);
+) DEFAULT CHARSET=utf8;
 
 create table system_setting(
   id int primary key auto_increment,
@@ -44,7 +51,7 @@ create table system_setting(
   address varchar(128),
   company_name varchar(128),
   time_stamp timestamp
-);
+) DEFAULT CHARSET=utf8;
 
 create table navigator(
   id int primary key auto_increment,
@@ -53,7 +60,7 @@ create table navigator(
   attribute int,
   time_stamp timestamp,
   status int
-);
+) DEFAULT CHARSET=utf8;
 
 create table lunbo(
   id int primary key auto_increment,
@@ -61,4 +68,4 @@ create table lunbo(
   attribute int,
   time_stamp timestamp,
   status int
-);
+) DEFAULT CHARSET=utf8;

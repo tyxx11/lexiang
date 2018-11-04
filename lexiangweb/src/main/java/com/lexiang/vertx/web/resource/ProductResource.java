@@ -3,8 +3,13 @@ package com.lexiang.vertx.web.resource;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.lexiang.vertx.web.entity.LexiangProduct;
+import com.lexiang.vertx.web.entity.LexiangProductWithBLOBs;
+import com.lexiang.vertx.web.entity.Lunbo;
+import com.lexiang.vertx.web.entity.Photos;
+import com.lexiang.vertx.web.service.HomePageService;
 import com.lexiang.vertx.web.service.ProductService;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.FileUpload;
@@ -29,31 +34,47 @@ public class ProductResource {
     @Inject
     ProductService productService;
 
+    @Inject
+    HomePageService homePageService;
+
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(RoutingContext ctx) {
         JsonObject json = ctx.getBodyAsJson();
-        LexiangProduct product = new LexiangProduct();
-        product.setAddress(json.getString("address"));
+        LexiangProductWithBLOBs product = new LexiangProductWithBLOBs();
+        product.setTargetAddress(json.getString("target_address"));
         product.setIntro(json.getString("prod_inro"));
         product.setDays(json.getInteger("prod_days"));
         product.setPrice(json.getInteger("price"));
         product.setTitle(json.getString("title"));
+        product.setTravalType(json.getInteger("traval_type"));
         int result = productService.save(product);
         ctx.response().end(String.valueOf(result));
-
     }
 
     @GET
     @Path("all")
     public void getProductAll(RoutingContext ctx) {
-        List<LexiangProduct> lexiangProductList = productService.getAll();
+        List<LexiangProductWithBLOBs> lexiangProductList = productService.getAll();
         ctx.response().end(JSON.toJSONString(lexiangProductList));
+    }
+
+    @GET
+    @Path("productShow")
+    public void getProductShowPage(RoutingContext ctx) {
+        List<LexiangProductWithBLOBs> lexiangProductList = productService.getAll();
+        Map<String,Object> map =homePageService.getNavigatorAndSysTemSetting();
+        map.put("products", lexiangProductList);
+        List<Lunbo> lunboList = productService.getProductShowLunbo();
+        map.put("lunbos", lunboList);
+        ctx.response().end(JSON.toJSONString(map));
     }
 
 
 
     @POST
+    @Path("getPic")
     @Consumes(MediaType.APPLICATION_JSON)
     public void getPhotos(RoutingContext ctx){
         JsonObject json = ctx.getBodyAsJson();

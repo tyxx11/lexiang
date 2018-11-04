@@ -235,76 +235,6 @@ public class LexiangProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andIntroIsNull() {
-            addCriterion("intro is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroIsNotNull() {
-            addCriterion("intro is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroEqualTo(String value) {
-            addCriterion("intro =", value, "intro");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroNotEqualTo(String value) {
-            addCriterion("intro <>", value, "intro");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroGreaterThan(String value) {
-            addCriterion("intro >", value, "intro");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroGreaterThanOrEqualTo(String value) {
-            addCriterion("intro >=", value, "intro");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroLessThan(String value) {
-            addCriterion("intro <", value, "intro");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroLessThanOrEqualTo(String value) {
-            addCriterion("intro <=", value, "intro");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroLike(String value) {
-            addCriterion("intro like", value, "intro");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroNotLike(String value) {
-            addCriterion("intro not like", value, "intro");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroIn(List<String> values) {
-            addCriterion("intro in", values, "intro");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroNotIn(List<String> values) {
-            addCriterion("intro not in", values, "intro");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroBetween(String value1, String value2) {
-            addCriterion("intro between", value1, value2, "intro");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntroNotBetween(String value1, String value2) {
-            addCriterion("intro not between", value1, value2, "intro");
-            return (Criteria) this;
-        }
-
         public Criteria andCreatedateIsNull() {
             addCriterion("createdate is null");
             return (Criteria) this;
@@ -425,73 +355,73 @@ public class LexiangProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddressIsNull() {
-            addCriterion("address is null");
+        public Criteria andTargetAddressIsNull() {
+            addCriterion("target_address is null");
             return (Criteria) this;
         }
 
-        public Criteria andAddressIsNotNull() {
-            addCriterion("address is not null");
+        public Criteria andTargetAddressIsNotNull() {
+            addCriterion("target_address is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAddressEqualTo(String value) {
-            addCriterion("address =", value, "address");
+        public Criteria andTargetAddressEqualTo(String value) {
+            addCriterion("target_address =", value, "targetAddress");
             return (Criteria) this;
         }
 
-        public Criteria andAddressNotEqualTo(String value) {
-            addCriterion("address <>", value, "address");
+        public Criteria andTargetAddressNotEqualTo(String value) {
+            addCriterion("target_address <>", value, "targetAddress");
             return (Criteria) this;
         }
 
-        public Criteria andAddressGreaterThan(String value) {
-            addCriterion("address >", value, "address");
+        public Criteria andTargetAddressGreaterThan(String value) {
+            addCriterion("target_address >", value, "targetAddress");
             return (Criteria) this;
         }
 
-        public Criteria andAddressGreaterThanOrEqualTo(String value) {
-            addCriterion("address >=", value, "address");
+        public Criteria andTargetAddressGreaterThanOrEqualTo(String value) {
+            addCriterion("target_address >=", value, "targetAddress");
             return (Criteria) this;
         }
 
-        public Criteria andAddressLessThan(String value) {
-            addCriterion("address <", value, "address");
+        public Criteria andTargetAddressLessThan(String value) {
+            addCriterion("target_address <", value, "targetAddress");
             return (Criteria) this;
         }
 
-        public Criteria andAddressLessThanOrEqualTo(String value) {
-            addCriterion("address <=", value, "address");
+        public Criteria andTargetAddressLessThanOrEqualTo(String value) {
+            addCriterion("target_address <=", value, "targetAddress");
             return (Criteria) this;
         }
 
-        public Criteria andAddressLike(String value) {
-            addCriterion("address like", value, "address");
+        public Criteria andTargetAddressLike(String value) {
+            addCriterion("target_address like", value, "targetAddress");
             return (Criteria) this;
         }
 
-        public Criteria andAddressNotLike(String value) {
-            addCriterion("address not like", value, "address");
+        public Criteria andTargetAddressNotLike(String value) {
+            addCriterion("target_address not like", value, "targetAddress");
             return (Criteria) this;
         }
 
-        public Criteria andAddressIn(List<String> values) {
-            addCriterion("address in", values, "address");
+        public Criteria andTargetAddressIn(List<String> values) {
+            addCriterion("target_address in", values, "targetAddress");
             return (Criteria) this;
         }
 
-        public Criteria andAddressNotIn(List<String> values) {
-            addCriterion("address not in", values, "address");
+        public Criteria andTargetAddressNotIn(List<String> values) {
+            addCriterion("target_address not in", values, "targetAddress");
             return (Criteria) this;
         }
 
-        public Criteria andAddressBetween(String value1, String value2) {
-            addCriterion("address between", value1, value2, "address");
+        public Criteria andTargetAddressBetween(String value1, String value2) {
+            addCriterion("target_address between", value1, value2, "targetAddress");
             return (Criteria) this;
         }
 
-        public Criteria andAddressNotBetween(String value1, String value2) {
-            addCriterion("address not between", value1, value2, "address");
+        public Criteria andTargetAddressNotBetween(String value1, String value2) {
+            addCriterion("target_address not between", value1, value2, "targetAddress");
             return (Criteria) this;
         }
 
@@ -672,6 +602,66 @@ public class LexiangProductExample {
 
         public Criteria andStatusNotBetween(Integer value1, Integer value2) {
             addCriterion("status not between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andTravalTypeIsNull() {
+            addCriterion("traval_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTravalTypeIsNotNull() {
+            addCriterion("traval_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTravalTypeEqualTo(Integer value) {
+            addCriterion("traval_type =", value, "travalType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTravalTypeNotEqualTo(Integer value) {
+            addCriterion("traval_type <>", value, "travalType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTravalTypeGreaterThan(Integer value) {
+            addCriterion("traval_type >", value, "travalType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTravalTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("traval_type >=", value, "travalType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTravalTypeLessThan(Integer value) {
+            addCriterion("traval_type <", value, "travalType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTravalTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("traval_type <=", value, "travalType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTravalTypeIn(List<Integer> values) {
+            addCriterion("traval_type in", values, "travalType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTravalTypeNotIn(List<Integer> values) {
+            addCriterion("traval_type not in", values, "travalType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTravalTypeBetween(Integer value1, Integer value2) {
+            addCriterion("traval_type between", value1, value2, "travalType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTravalTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("traval_type not between", value1, value2, "travalType");
             return (Criteria) this;
         }
     }

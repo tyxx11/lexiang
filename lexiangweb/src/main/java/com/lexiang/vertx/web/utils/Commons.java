@@ -12,6 +12,8 @@ public class Commons {
 
     //lunbo attribute
     public static int attribute_homepage_lunbo = 1;
+    public static int attribute_productShow_lunbo = 2;
+
 
     //navigator attribute
     public static int attribute_navigator_main = 1;

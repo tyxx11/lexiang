@@ -22,5 +22,6 @@
         <mapper class="com.lexiang.vertx.web.mapper.SystemSettingMapper"/>
         <mapper class="com.lexiang.vertx.web.mapper.HomePageContentMapper"/>
         <mapper class="com.lexiang.vertx.web.mapper.LunboMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.TrvalTypeMapper"/>
     </mappers>
 </configuration>

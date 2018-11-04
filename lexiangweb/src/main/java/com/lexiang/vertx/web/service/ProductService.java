@@ -1,9 +1,9 @@
 package com.lexiang.vertx.web.service;
 
-import com.lexiang.vertx.web.entity.LexiangProduct;
-import com.lexiang.vertx.web.entity.LexiangProductExample;
-import com.lexiang.vertx.web.entity.LexiangProductKey;
+import com.lexiang.vertx.web.entity.*;
 import com.lexiang.vertx.web.mapper.LexiangProductMapper;
+import com.lexiang.vertx.web.mapper.LunboMapper;
+import com.lexiang.vertx.web.utils.Commons;
 
 import javax.inject.Inject;
 import java.util.Date;
@@ -14,17 +14,20 @@ public class ProductService {
     @Inject
     LexiangProductMapper productMapper;
 
-    public int save(LexiangProduct product){
+    @Inject
+    LunboMapper lunboMapper;
+
+    public int save(LexiangProductWithBLOBs product){
         product.setCreatedate(new Date());
         product.setModifydate(new Date());
         product.setStatus(0);
         return productMapper.insert(product);
     }
 
-    public List<LexiangProduct> getAll(){
+    public List<LexiangProductWithBLOBs> getAll(){
         LexiangProductExample example = new LexiangProductExample();
         example.createCriteria().getAllCriteria();
-        return productMapper.selectByExample(example);
+        return productMapper.selectByExampleWithBLOBs(example);
     }
 
     public int deteleProduct(int id){
@@ -37,6 +40,12 @@ public class ProductService {
         LexiangProductExample example = new LexiangProductExample();
         example.createCriteria().andStatusEqualTo(product.getStatus());
         return productMapper.selectByExample(example);
+    }
+
+    public List<Lunbo> getProductShowLunbo(){
+        LunboExample example = new LunboExample();
+        example.createCriteria().andStatusEqualTo(0).andAttributeEqualTo(Commons.attribute_productShow_lunbo);
+        return lunboMapper.selectByExample(example);
     }
 
 }

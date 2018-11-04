@@ -3,6 +3,7 @@ package com.lexiang.vertx.web.mapper;
 import com.lexiang.vertx.web.entity.LexiangProduct;
 import com.lexiang.vertx.web.entity.LexiangProductExample;
 import com.lexiang.vertx.web.entity.LexiangProductKey;
+import com.lexiang.vertx.web.entity.LexiangProductWithBLOBs;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,19 +14,25 @@ public interface LexiangProductMapper {
 
     int deleteByPrimaryKey(LexiangProductKey key);
 
-    int insert(LexiangProduct record);
+    int insert(LexiangProductWithBLOBs record);
 
-    int insertSelective(LexiangProduct record);
+    int insertSelective(LexiangProductWithBLOBs record);
+
+    List<LexiangProductWithBLOBs> selectByExampleWithBLOBs(LexiangProductExample example);
 
     List<LexiangProduct> selectByExample(LexiangProductExample example);
 
-    LexiangProduct selectByPrimaryKey(LexiangProductKey key);
+    LexiangProductWithBLOBs selectByPrimaryKey(LexiangProductKey key);
 
-    int updateByExampleSelective(@Param("record") LexiangProduct record, @Param("example") LexiangProductExample example);
+    int updateByExampleSelective(@Param("record") LexiangProductWithBLOBs record, @Param("example") LexiangProductExample example);
+
+    int updateByExampleWithBLOBs(@Param("record") LexiangProductWithBLOBs record, @Param("example") LexiangProductExample example);
 
     int updateByExample(@Param("record") LexiangProduct record, @Param("example") LexiangProductExample example);
 
-    int updateByPrimaryKeySelective(LexiangProduct record);
+    int updateByPrimaryKeySelective(LexiangProductWithBLOBs record);
+
+    int updateByPrimaryKeyWithBLOBs(LexiangProductWithBLOBs record);
 
     int updateByPrimaryKey(LexiangProduct record);
 }

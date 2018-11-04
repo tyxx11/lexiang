@@ -78,6 +78,19 @@ public class HomePageService {
         }
     }
 
+    public Map<String,Object> getNavigatorAndSysTemSetting(){
+        Map<String,Object> map = Maps.newHashMap();
+        SystemSettingExample systemSettingExample = new SystemSettingExample();
+        systemSettingExample.createCriteria().getAllCriteria();
+        List<SystemSetting> systemSettingList = systemSettingMapper.selectByExample(systemSettingExample);
+        map.put("systemsetting", systemSettingList);
+        NavigatorExample navigatorExample = new NavigatorExample();
+        navigatorExample.createCriteria().andStatusEqualTo(0);
+        List<Navigator> navigatorList = navigatorMapper.selectByExample(navigatorExample);
+        map.put("navigator", navigatorList);
+        return map;
+    }
+
     public Map<String,Object> getHomePageAll(){
         Map<String,Object> map = Maps.newHashMap();
         NavigatorExample navigatorExample = new NavigatorExample();

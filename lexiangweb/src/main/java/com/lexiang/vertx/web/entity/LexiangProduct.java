@@ -5,13 +5,11 @@ import java.util.Date;
 public class LexiangProduct extends LexiangProductKey {
     private String title;
 
-    private String intro;
-
     private Date createdate;
 
     private Date modifydate;
 
-    private String address;
+    private String targetAddress;
 
     private Integer days;
 
@@ -19,20 +17,14 @@ public class LexiangProduct extends LexiangProductKey {
 
     private Integer status;
 
+    private Integer travalType;
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
-    }
-
-    public String getIntro() {
-        return intro;
-    }
-
-    public void setIntro(String intro) {
-        this.intro = intro == null ? null : intro.trim();
     }
 
     public Date getCreatedate() {
@@ -51,12 +43,12 @@ public class LexiangProduct extends LexiangProductKey {
         this.modifydate = modifydate;
     }
 
-    public String getAddress() {
-        return address;
+    public String getTargetAddress() {
+        return targetAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setTargetAddress(String targetAddress) {
+        this.targetAddress = targetAddress == null ? null : targetAddress.trim();
     }
 
     public Integer getDays() {
@@ -81,5 +73,13 @@ public class LexiangProduct extends LexiangProductKey {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getTravalType() {
+        return travalType;
+    }
+
+    public void setTravalType(Integer travalType) {
+        this.travalType = travalType;
     }
 }
