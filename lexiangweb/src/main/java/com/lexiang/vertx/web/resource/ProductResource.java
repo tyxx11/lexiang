@@ -57,7 +57,7 @@ public class ProductResource {
     @Path("all")
     public void getProductAll(RoutingContext ctx) {
         List<LexiangProductWithBLOBs> lexiangProductList = productService.getAll();
-        ctx.response().end(JSON.toJSONString(lexiangProductList));
+        ctx.response().putHeader("content-type", "application/json; charset=utf-8").end(JSON.toJSONString(lexiangProductList));
     }
 
     @GET
@@ -68,7 +68,7 @@ public class ProductResource {
         map.put("products", lexiangProductList);
         List<Lunbo> lunboList = productService.getProductShowLunbo();
         map.put("lunbos", lunboList);
-        ctx.response().end(JSON.toJSONString(map));
+        ctx.response().putHeader("content-type", "application/json; charset=utf-8").end(JSON.toJSONString(map));
     }
 
 

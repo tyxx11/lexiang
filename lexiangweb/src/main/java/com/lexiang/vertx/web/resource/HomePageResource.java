@@ -47,7 +47,7 @@ public class HomePageResource {
         product.setStatus(Commons.status_recommend);
         List<LexiangProduct> lexiangProductList = productService.getBy(product);
         map.put("recommendProduct", lexiangProductList);
-        ctx.response().end(JSON.toJSONString(map));
+        ctx.response().putHeader("content-type", "application/json; charset=utf-8").end(JSON.toJSONString(map));
     }
 
    /* @GET
