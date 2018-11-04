@@ -99,7 +99,7 @@ public class HomePageService {
         map.put("navigator", navigatorList);
         HomePageContentExample homePageContentExample = new HomePageContentExample();
         homePageContentExample.createCriteria().andStatusEqualTo(0);
-        List<HomePageContent> homePageContents = homePageContentMapper.selectByExample(homePageContentExample);
+        List<HomePageContentWithBLOBs> homePageContents = homePageContentMapper.selectByExampleWithBLOBs(homePageContentExample);
         map.put("homepageContent", homePageContents);
         SystemSettingExample systemSettingExample = new SystemSettingExample();
         systemSettingExample.createCriteria().getAllCriteria();
