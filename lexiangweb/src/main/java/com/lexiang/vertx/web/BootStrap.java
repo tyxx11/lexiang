@@ -16,6 +16,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CookieHandler;
+import io.vertx.ext.web.handler.CorsHandler;
 import io.vertx.ext.web.handler.ResponseTimeHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,14 +81,24 @@ public class BootStrap extends AbstractVerticle{
         // We need a cookie handler first
         mainRouter.route().handler(CookieHandler.create());
         mainRouter.route().handler(BodyHandler.create());
-
+        mainRouter .route()
+                .handler(
+                        CorsHandler.create("*")
+                                .allowedMethod(io.vertx.core.http.HttpMethod.GET)
+                                .allowedMethod(io.vertx.core.http.HttpMethod.POST)
+                                .allowedMethod(io.vertx.core.http.HttpMethod.OPTIONS)
+                                .allowedMethod(io.vertx.core.http.HttpMethod.PUT)
+                                .allowedMethod(io.vertx.core.http.HttpMethod.DELETE)
+                                .allowedHeader("Content-Type")
+                                .allowedHeader("X-Requested-With")
+                                .allowedHeader("Access-Control-Allow-Origin"));
         //acl拦截判断
-        mainRouter.route().handler(ctx -> {
+      /*  mainRouter.route().handler(ctx -> {
             HttpServerRequest request = ctx.request();
             CaseInsensitiveHeaders cmpHeaders =  new CaseInsensitiveHeaders();
             cmpHeaders.setAll(request.headers());
             ctx.next();
-        });
+        });*/
     }
 
     private void registerResourceHandler(Router mainRouter) {
