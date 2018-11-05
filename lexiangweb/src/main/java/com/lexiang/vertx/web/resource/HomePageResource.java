@@ -1,16 +1,15 @@
 package com.lexiang.vertx.web.resource;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Maps;
 import com.lexiang.vertx.web.entity.*;
 import com.lexiang.vertx.web.service.HomePageService;
-import com.lexiang.vertx.web.service.PhotoService;
 import com.lexiang.vertx.web.service.ProductService;
-import com.lexiang.vertx.web.service.StaticPageService;
 import com.lexiang.vertx.web.utils.Commons;
 import com.lexiang.vertx.web.utils.Jsons;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +20,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +40,7 @@ public class HomePageResource {
 
     @GET
     public void getHomePage(RoutingContext ctx) {
-        Map<String, Object>  map = homePageService.getHomePageAll();
+        Map<String, Object> map = homePageService.getHomePageAll();
         LexiangProduct product = new LexiangProduct();
         product.setStatus(Commons.status_recommend);
         List<LexiangProduct> lexiangProductList = productService.getBy(product);
@@ -63,17 +61,17 @@ public class HomePageResource {
     @POST
     @Path("navigator")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createNavigator(RoutingContext ctx){
+    public void createNavigator(RoutingContext ctx) {
         JsonObject json = ctx.getBodyAsJson();
-        List<Map<String,Object>> navegatorList = Jsons.objectFromJSONStr(json.getValue("navigators").toString(),List.class);
-        for (Map<String,Object> map : navegatorList){
+        List<Map<String, Object>> navegatorList = Jsons.objectFromJSONStr(json.getValue("navigators").toString(), List.class);
+        for (Map<String, Object> map : navegatorList) {
             Navigator navigator = new Navigator();
             navigator.setAttribute((Integer) map.get("attribute"));
             navigator.setName(map.get("name").toString());
-            if (map.get("parent_name") != null && navigator.getAttribute() == Commons.attribute_navigator_main){
+            if (map.get("parent_name") != null && navigator.getAttribute() == Commons.attribute_navigator_main) {
                 navigator.setParentName(map.get("parent_name").toString());
             }
-            if (map.get("status") != null){
+            if (map.get("status") != null) {
                 navigator.setStatus((Integer) map.get("status"));
             }
             homePageService.upSertNavigator(navigator);
@@ -84,15 +82,15 @@ public class HomePageResource {
     @POST
     @Path("lunbo")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createLunbo(RoutingContext ctx){
+    public void createLunbo(RoutingContext ctx) {
         JsonObject json = ctx.getBodyAsJson();
-        List<Map<String,Object>> lunboList = Jsons.objectFromJSONStr(json.getValue("lunbo").toString()
-                ,List.class);
-        for (Map<String,Object> map : lunboList){
+        List<Map<String, Object>> lunboList = Jsons.objectFromJSONStr(json.getValue("lunbo").toString()
+                , List.class);
+        for (Map<String, Object> map : lunboList) {
             Lunbo lunbo = new Lunbo();
             lunbo.setAttribute((Integer) map.get("attribute"));
             lunbo.setPhotoAddress(map.get("photoAddress").toString());
-            if (map.get("status") != null){
+            if (map.get("status") != null) {
                 lunbo.setStatus((Integer) map.get("status"));
             }
             homePageService.upSertLunbo(lunbo);
@@ -103,38 +101,33 @@ public class HomePageResource {
     @POST
     @Path("homepagecontent")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createHomePageContent(RoutingContext ctx){
-        JsonObject json = ctx.getBodyAsJson();
-        List<Map<String,Object>> contentList = Jsons.objectFromJSONStr(
-                json.getValue("homepagecontent").toString(), List.class);
-        for (Map<String,Object> map : contentList){
-            HomePageContentWithBLOBs content = new HomePageContentWithBLOBs();
-            content.setDivBot(map.get("divbot").toString());
-            content.setDivMid(map.get("divmid").toString());
-            content.setDivTop(map.get("divtop").toString());
-            if (map.get("status") != null){
-                content.setStatus((Integer) map.get("status"));
-            }
-            homePageService.upSertHomePageContent(content);
+    public void createHomePageContent(RoutingContext ctx) {
+        Map<String, Map<String, Object>> bigmap = Jsons.objectFromJSONStr(ctx.getBodyAsString(), Map.class);
+        Map<String, Object> map = bigmap.get("homepagecontent");
+        HomePageContentWithBLOBs content = new HomePageContentWithBLOBs();
+        content.setDivBot(StringEscapeUtils.unescapeJava(map.get("divbot").toString()));
+        content.setDivMid(StringEscapeUtils.unescapeJava(map.get("divmid").toString()));
+        content.setDivTop(StringEscapeUtils.unescapeJava(map.get("divtop").toString()));
+        if (map.get("status") != null) {
+            content.setStatus((Integer) map.get("status"));
         }
+        homePageService.upSertHomePageContent(content);
         ctx.response().end(JSON.toJSONString("save ok."));
     }
 
     @POST
     @Path("systemsetting")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createSystemSetting(RoutingContext ctx){
+    public void createSystemSetting(RoutingContext ctx) {
         JsonObject json = ctx.getBodyAsJson();
-        List<Map<String,Object>> systemSettingList = Jsons.objectFromJSONStr(json.getValue("systemsetting").toString(), List.class);
-        for (Map<String,Object> map : systemSettingList){
-            SystemSetting systemSetting = new SystemSetting();
-            systemSetting.setAddress(map.get("address").toString());
-            systemSetting.setCompanyName(map.get("company_name").toString());
-            systemSetting.setLog1(map.get("log1").toString());
-            systemSetting.setLog2(map.get("log2").toString());
-            systemSetting.setTelNum(map.get("tel_num").toString());
-            homePageService.upSertSystemSetting(systemSetting);
-        }
+        Map<String, Object> map = Jsons.objectFromJSONStr(json.getValue("systemsetting").toString(), Map.class);
+        SystemSetting systemSetting = new SystemSetting();
+        systemSetting.setAddress(map.get("address").toString());
+        systemSetting.setCompanyName(map.get("company_name").toString());
+        systemSetting.setLog1(map.get("log1").toString());
+        systemSetting.setLog2(map.get("log2").toString());
+        systemSetting.setTelNum(map.get("tel_num").toString());
+        homePageService.upSertSystemSetting(systemSetting);
         ctx.response().end(JSON.toJSONString("save ok."));
 
     }

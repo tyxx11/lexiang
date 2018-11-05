@@ -50,8 +50,15 @@ public class PhotoResource {
         }
         FileUpload fileUpload = (FileUpload) ctx.fileUploads().toArray()[0];
         File file = new File(fileUpload.uploadedFileName());
+        String dir = photoUploadPath + prefix;
         String fileName = photoUploadPath + prefix + "/" + fileUpload.fileName();
-        file.renameTo(new File(fileName));
+        File destDir = new File(dir);
+        File destFile = new File(fileName);
+        if (!destDir.exists()){
+            destDir.mkdir();
+        }
+        file.renameTo(destFile);
+        file.delete();
         Map<String,String> map = Maps.newHashMap();
         map.put("error Message", "file uploaded");
         map.put("pic path", fileName);

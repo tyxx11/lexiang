@@ -27,6 +27,7 @@ public class Jsons {
         module.addSerializer(UUID.class, new UUIDJSONSerializer());
         module.addDeserializer(UUID.class, new UUIDJSONDeserializer());
         objectMapper.registerModule(module);
+        objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
         jjp = new JacksonJsonProvider(objectMapper);
     }
 

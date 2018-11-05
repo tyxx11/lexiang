@@ -47,7 +47,7 @@ public class HomePageService {
     public void upSertLunbo(Lunbo lunbo){
         lunbo.setTimeStamp(new Date());
         LunboExample example = new LunboExample();
-        example.createCriteria().andAttributeEqualTo(lunbo.getAttribute()).andStatusEqualTo(0);
+        example.createCriteria().andPhotoAddressEqualTo(lunbo.getPhotoAddress()).andAttributeEqualTo(lunbo.getAttribute()).andStatusEqualTo(0);
         if (lunboMapper.countByExample(example) == 0){
             lunbo.setStatus(0);
             lunboMapper.insert(lunbo);
@@ -82,8 +82,8 @@ public class HomePageService {
         Map<String,Object> map = Maps.newHashMap();
         SystemSettingExample systemSettingExample = new SystemSettingExample();
         systemSettingExample.createCriteria().getAllCriteria();
-        List<SystemSetting> systemSettingList = systemSettingMapper.selectByExample(systemSettingExample);
-        map.put("systemsetting", systemSettingList);
+        SystemSetting systemSetting = systemSettingMapper.selectByExample(systemSettingExample).get(0);
+        map.put("systemsetting", systemSetting);
         NavigatorExample navigatorExample = new NavigatorExample();
         navigatorExample.createCriteria().andStatusEqualTo(0);
         List<Navigator> navigatorList = navigatorMapper.selectByExample(navigatorExample);
@@ -99,11 +99,11 @@ public class HomePageService {
         map.put("navigator", navigatorList);
         HomePageContentExample homePageContentExample = new HomePageContentExample();
         homePageContentExample.createCriteria().andStatusEqualTo(0);
-        List<HomePageContentWithBLOBs> homePageContents = homePageContentMapper.selectByExampleWithBLOBs(homePageContentExample);
+        HomePageContentWithBLOBs homePageContents = homePageContentMapper.selectByExampleWithBLOBs(homePageContentExample).get(0);
         map.put("homepageContent", homePageContents);
         SystemSettingExample systemSettingExample = new SystemSettingExample();
         systemSettingExample.createCriteria().getAllCriteria();
-        List<SystemSetting> systemSettingList = systemSettingMapper.selectByExample(systemSettingExample);
+        SystemSetting systemSettingList = systemSettingMapper.selectByExample(systemSettingExample).get(0);
         map.put("systemsetting", systemSettingList);
         LunboExample lunboExample = new LunboExample();
         lunboExample.createCriteria().andStatusEqualTo(0).andAttributeEqualTo(Commons.attribute_homepage_lunbo);
