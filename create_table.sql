@@ -1,6 +1,8 @@
+drop table if exists lexiang_product;
 create table lexiang_product(
   id int primary key auto_increment,
   title varchar(1024),
+  photo_path varchar(64),
   intro text,
   createdate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   modifydate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

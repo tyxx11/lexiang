@@ -26,7 +26,7 @@
 
         <!-- 必须要有的，使用这个配置链接数据库 @TODO:是否可以扩展 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://xxxx:3306/lexiang" userId="root" password="xxxx">
+                        connectionURL="jdbc:mysql://xxx:3306/lexiang" userId="root" password="xxxx">
         </jdbcConnection>
 
         <!-- java类型处理器 用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl； 注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和

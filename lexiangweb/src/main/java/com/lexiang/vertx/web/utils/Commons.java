@@ -17,4 +17,10 @@ public class Commons {
 
     //navigator attribute
     public static int attribute_navigator_main = 1;
+
+    //product type
+    public static int type_guoji=1;
+    public static int type_guonei=2;
+    public static int type_zhoubian=3;
+    public static int type_ziran=4;
 }

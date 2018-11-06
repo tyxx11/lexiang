@@ -5,6 +5,8 @@ import java.util.Date;
 public class LexiangProduct extends LexiangProductKey {
     private String title;
 
+    private String photoPath;
+
     private Date createdate;
 
     private Date modifydate;
@@ -25,6 +27,14 @@ public class LexiangProduct extends LexiangProductKey {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath == null ? null : photoPath.trim();
     }
 
     public Date getCreatedate() {

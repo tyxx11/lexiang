@@ -20,7 +20,9 @@ public class ProductService {
     public int save(LexiangProductWithBLOBs product){
         product.setCreatedate(new Date());
         product.setModifydate(new Date());
-        product.setStatus(0);
+        if (product.getStatus() == null){
+            product.setStatus(0);
+        }
         return productMapper.insert(product);
     }
 

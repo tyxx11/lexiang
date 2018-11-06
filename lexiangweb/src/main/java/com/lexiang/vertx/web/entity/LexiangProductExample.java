@@ -235,6 +235,76 @@ public class LexiangProductExample {
             return (Criteria) this;
         }
 
+        public Criteria andPhotoPathIsNull() {
+            addCriterion("photo_path is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathIsNotNull() {
+            addCriterion("photo_path is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathEqualTo(String value) {
+            addCriterion("photo_path =", value, "photoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathNotEqualTo(String value) {
+            addCriterion("photo_path <>", value, "photoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathGreaterThan(String value) {
+            addCriterion("photo_path >", value, "photoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathGreaterThanOrEqualTo(String value) {
+            addCriterion("photo_path >=", value, "photoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathLessThan(String value) {
+            addCriterion("photo_path <", value, "photoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathLessThanOrEqualTo(String value) {
+            addCriterion("photo_path <=", value, "photoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathLike(String value) {
+            addCriterion("photo_path like", value, "photoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathNotLike(String value) {
+            addCriterion("photo_path not like", value, "photoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathIn(List<String> values) {
+            addCriterion("photo_path in", values, "photoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathNotIn(List<String> values) {
+            addCriterion("photo_path not in", values, "photoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathBetween(String value1, String value2) {
+            addCriterion("photo_path between", value1, value2, "photoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhotoPathNotBetween(String value1, String value2) {
+            addCriterion("photo_path not between", value1, value2, "photoPath");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatedateIsNull() {
             addCriterion("createdate is null");
             return (Criteria) this;

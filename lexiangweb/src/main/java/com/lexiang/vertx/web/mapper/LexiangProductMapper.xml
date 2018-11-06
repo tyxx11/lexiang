@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.lexiang.vertx.web.entity.LexiangProduct" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="photo_path" property="photoPath" jdbcType="VARCHAR" />
     <result column="createdate" property="createdate" jdbcType="TIMESTAMP" />
     <result column="modifydate" property="modifydate" jdbcType="TIMESTAMP" />
     <result column="target_address" property="targetAddress" jdbcType="VARCHAR" />
@@ -74,7 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, createdate, modifydate, target_address, days, price, status, traval_type
+    id, title, photo_path, createdate, modifydate, target_address, days, price, status, 
+    traval_type
   </sql>
   <sql id="Blob_Column_List" >
     intro
@@ -128,20 +130,23 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.lexiang.vertx.web.entity.LexiangProductWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
-    insert into lexiang_product (title, createdate, modifydate, 
-      target_address, days, price, 
-      status, traval_type, intro
-      )
-    values (#{title,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{modifydate,jdbcType=TIMESTAMP}, 
-      #{targetAddress,jdbcType=VARCHAR}, #{days,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{travalType,jdbcType=INTEGER}, #{intro,jdbcType=LONGVARCHAR}
-      )
+    insert into lexiang_product (title, photo_path, createdate, 
+      modifydate, target_address, days, 
+      price, status, traval_type, 
+      intro)
+    values (#{title,jdbcType=VARCHAR}, #{photoPath,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{modifydate,jdbcType=TIMESTAMP}, #{targetAddress,jdbcType=VARCHAR}, #{days,jdbcType=INTEGER}, 
+      #{price,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{travalType,jdbcType=INTEGER}, 
+      #{intro,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.lexiang.vertx.web.entity.LexiangProductWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
     insert into lexiang_product
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="title != null" >
         title,
+      </if>
+      <if test="photoPath != null" >
+        photo_path,
       </if>
       <if test="createdate != null" >
         createdate,
@@ -171,6 +176,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="photoPath != null" >
+        #{photoPath,jdbcType=VARCHAR},
       </if>
       <if test="createdate != null" >
         #{createdate,jdbcType=TIMESTAMP},
@@ -213,6 +221,9 @@
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
       </if>
+      <if test="record.photoPath != null" >
+        photo_path = #{record.photoPath,jdbcType=VARCHAR},
+      </if>
       <if test="record.createdate != null" >
         createdate = #{record.createdate,jdbcType=TIMESTAMP},
       </if>
@@ -246,6 +257,7 @@
     update lexiang_product
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
+      photo_path = #{record.photoPath,jdbcType=VARCHAR},
       createdate = #{record.createdate,jdbcType=TIMESTAMP},
       modifydate = #{record.modifydate,jdbcType=TIMESTAMP},
       target_address = #{record.targetAddress,jdbcType=VARCHAR},
@@ -262,6 +274,7 @@
     update lexiang_product
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
+      photo_path = #{record.photoPath,jdbcType=VARCHAR},
       createdate = #{record.createdate,jdbcType=TIMESTAMP},
       modifydate = #{record.modifydate,jdbcType=TIMESTAMP},
       target_address = #{record.targetAddress,jdbcType=VARCHAR},
@@ -278,6 +291,9 @@
     <set >
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="photoPath != null" >
+        photo_path = #{photoPath,jdbcType=VARCHAR},
       </if>
       <if test="createdate != null" >
         createdate = #{createdate,jdbcType=TIMESTAMP},
@@ -309,6 +325,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lexiang.vertx.web.entity.LexiangProductWithBLOBs" >
     update lexiang_product
     set title = #{title,jdbcType=VARCHAR},
+      photo_path = #{photoPath,jdbcType=VARCHAR},
       createdate = #{createdate,jdbcType=TIMESTAMP},
       modifydate = #{modifydate,jdbcType=TIMESTAMP},
       target_address = #{targetAddress,jdbcType=VARCHAR},
@@ -322,6 +339,7 @@
   <update id="updateByPrimaryKey" parameterType="com.lexiang.vertx.web.entity.LexiangProduct" >
     update lexiang_product
     set title = #{title,jdbcType=VARCHAR},
+      photo_path = #{photoPath,jdbcType=VARCHAR},
       createdate = #{createdate,jdbcType=TIMESTAMP},
       modifydate = #{modifydate,jdbcType=TIMESTAMP},
       target_address = #{targetAddress,jdbcType=VARCHAR},

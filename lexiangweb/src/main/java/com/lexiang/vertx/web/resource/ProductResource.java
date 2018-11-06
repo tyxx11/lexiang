@@ -48,7 +48,11 @@ public class ProductResource {
         product.setDays(json.getInteger("prod_days"));
         product.setPrice(json.getInteger("price"));
         product.setTitle(json.getString("title"));
+        product.setPhotoPath(json.getString("photo_path"));
         product.setTravalType(json.getInteger("traval_type"));
+        if (json.getInteger("status") != null){
+            product.setStatus(json.getInteger("status"));
+        }
         int result = productService.save(product);
         ctx.response().end(String.valueOf(result));
     }
