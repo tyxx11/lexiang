@@ -26,6 +26,13 @@ public class ProductService {
         return productMapper.insert(product);
     }
 
+    public void update(LexiangProductWithBLOBs productWithBLOBs){
+        LexiangProductExample example = new LexiangProductExample();
+        example.createCriteria().andIdEqualTo(productWithBLOBs.getId());
+        productMapper.updateByExampleSelective(productWithBLOBs,example);
+
+    }
+
     public List<LexiangProductWithBLOBs> getAll(){
         LexiangProductExample example = new LexiangProductExample();
         example.createCriteria().getAllCriteria();

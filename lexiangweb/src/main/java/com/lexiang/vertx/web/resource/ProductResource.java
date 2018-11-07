@@ -57,6 +57,19 @@ public class ProductResource {
         ctx.response().end(String.valueOf(result));
     }
 
+    @POST
+    @Path("fix")
+    public void fix(RoutingContext ctx){
+        List<LexiangProductWithBLOBs> lexiangProductList = productService.getAll();
+        for (LexiangProductWithBLOBs product : lexiangProductList){
+            String path = product.getPhotoPath();
+            path = path.replaceAll("/home/lexiang","http://47.106.250.195:80");
+            product.setPhotoPath(path);
+            productService.update(product);
+        }
+        ctx.response().end("update ok;");
+    }
+
     @GET
     @Path("all")
     public void getProductAll(RoutingContext ctx) {
