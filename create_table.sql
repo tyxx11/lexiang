@@ -71,3 +71,48 @@ create table lunbo(
   time_stamp timestamp,
   status int
 ) DEFAULT CHARSET=utf8;
+
+create table product_detail(
+  id int primary key auto_increment,
+  product_id int,
+  team_member_upper_limit int,
+  sign_up_people varchar(10) comment '报名对象',
+  gathering_place varchar(64),
+  disbanded_place varchar(64)
+)DEFAULT CHARSET=utf8;
+
+
+create table product_comments (
+  id int primary key auto_increment,
+  name varchar(64),
+  coments_conntent varchar(255),
+  profile_photo varchar(128)
+)DEFAULT CHARSET=utf8;
+
+create table price_contain(
+  id int primary key auto_increment,
+  tag_id int
+)DEFAULT CHARSET=utf8;
+
+create table price_not_contain(
+  id int primary key auto_increment,
+  tag_id int
+)DEFAULT CHARSET=utf8;
+
+create table price_tag(
+  id int primary key auto_increment,
+  tag_name varchar(10),
+  tag_describe varchar(255),
+  tag_photo varchar(128)
+)DEFAULT CHARSET=utf8;
+
+create table read_before_travel(
+  id int primary key auto_increment,
+  tag_id int
+)DEFAULT CHARSET=utf8;
+
+create table read_before_travel_tag(
+  id int primary key auto_increment,
+  tag_name varchar(10),
+  tag_describe text,
+)DEFAULT CHARSET=utf8;
