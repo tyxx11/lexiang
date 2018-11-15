@@ -78,15 +78,37 @@ create table product_detail(
   team_member_upper_limit int,
   sign_up_people varchar(10) comment '报名对象',
   gathering_place varchar(64),
-  disbanded_place varchar(64)
+  disbanded_place varchar(64),
+  trival_topo_id int,
+  div_baomingwuyou text,
+  div_tiyanwuyou text,
+  div_jiagewuyou text,
+  div_changjianwenti text,
+  div__xingchengliangdian text,
+  div_quxiaodingdan text,
+  div_shuoming text,
+  read_before_travel_id
 )DEFAULT CHARSET=utf8;
 
+create table trival_topo(
+  id int primary key auto_increment,
+  name varchar(),
+  trival_date varchar,
+  photo varchar,
+  ruzhu varchar,
+  food varchar,
+  checheng varchar,
+  div1,
+  div2,
+  div3
+)DEFAULT CHARSET=utf8;
 
 create table product_comments (
   id int primary key auto_increment,
   name varchar(64),
   coments_conntent varchar(255),
-  profile_photo varchar(128)
+  profile_photo varchar(128),
+  product_id int
 )DEFAULT CHARSET=utf8;
 
 create table price_contain(
@@ -115,4 +137,16 @@ create table read_before_travel_tag(
   id int primary key auto_increment,
   tag_name varchar(10),
   tag_describe text,
+)DEFAULT CHARSET=utf8;
+
+create table custom_story(
+  id int primary key auto_increment,
+  pic1 varchar,
+  div1 text,
+  pic2 varchar,
+  div2 text,
+  pic3 varchar,
+  div3 text,
+  pic4 varchar,
+  div4 text
 )DEFAULT CHARSET=utf8;
