@@ -72,6 +72,7 @@ create table lunbo(
   status int
 ) DEFAULT CHARSET=utf8;
 
+drop table if exists product_detail;
 create table product_detail(
   id int primary key auto_increment,
   product_id int,
@@ -79,28 +80,28 @@ create table product_detail(
   sign_up_people varchar(10) comment '报名对象',
   gathering_place varchar(64),
   disbanded_place varchar(64),
-  trival_topo_id int,
   div_baomingwuyou text,
   div_tiyanwuyou text,
   div_jiagewuyou text,
-  div_changjianwenti text,
-  div__xingchengliangdian text,
-  div_quxiaodingdan text,
-  div_shuoming text,
-  read_before_travel_id
+  div_common_problems text,
+  div__travel_characteristic text,
+  div_cancel_order text,
+  div_explain text comment '说明'
 )DEFAULT CHARSET=utf8;
 
-create table trival_topo(
+drop table if exists travel_topo;
+create table travel_topo(
   id int primary key auto_increment,
-  name varchar(),
-  trival_date varchar,
-  photo varchar,
-  ruzhu varchar,
-  food varchar,
-  checheng varchar,
-  div1,
-  div2,
-  div3
+  product_id int,
+  name varchar(24),
+  travel_date varchar(24),
+  photo_address varchar(128),
+  accommodation varchar(64),
+  food varchar(64),
+  range_of_driving varchar(32),
+  div1 text comment 'describe 1',
+  div2 text comment 'describe 2',
+  div3 text comment 'describe 3'
 )DEFAULT CHARSET=utf8;
 
 create table product_comments (
@@ -113,11 +114,13 @@ create table product_comments (
 
 create table price_contain(
   id int primary key auto_increment,
+  product_id int,
   tag_id int
 )DEFAULT CHARSET=utf8;
 
 create table price_not_contain(
   id int primary key auto_increment,
+  product_id int,
   tag_id int
 )DEFAULT CHARSET=utf8;
 
@@ -130,23 +133,24 @@ create table price_tag(
 
 create table read_before_travel(
   id int primary key auto_increment,
-  tag_id int
+  tag_id int,
+  product_id int
 )DEFAULT CHARSET=utf8;
 
 create table read_before_travel_tag(
   id int primary key auto_increment,
-  tag_name varchar(10),
-  tag_describe text,
+  tag_name varchar(24),
+  tag_describe text
 )DEFAULT CHARSET=utf8;
 
 create table custom_story(
   id int primary key auto_increment,
-  pic1 varchar,
+  pic1_address varchar(128),
   div1 text,
-  pic2 varchar,
+  pic2_address varchar(128),
   div2 text,
-  pic3 varchar,
+  pic3_address varchar(128),
   div3 text,
-  pic4 varchar,
+  pic4_address varchar(128),
   div4 text
 )DEFAULT CHARSET=utf8;

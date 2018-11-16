@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lexiang.vertx.web.mapper.ProductDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.lexiang.vertx.web.entity.ProductDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="team_member_upper_limit" property="teamMemberUpperLimit" jdbcType="INTEGER" />
+    <result column="sign_up_people" property="signUpPeople" jdbcType="VARCHAR" />
+    <result column="gathering_place" property="gatheringPlace" jdbcType="VARCHAR" />
+    <result column="disbanded_place" property="disbandedPlace" jdbcType="VARCHAR" />
+    <result column="travel_topo_id" property="travelTopoId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lexiang.vertx.web.entity.ProductDetailWithBLOBs" extends="BaseResultMap" >
+    <result column="div_baomingwuyou" property="divBaomingwuyou" jdbcType="LONGVARCHAR" />
+    <result column="div_tiyanwuyou" property="divTiyanwuyou" jdbcType="LONGVARCHAR" />
+    <result column="div_jiagewuyou" property="divJiagewuyou" jdbcType="LONGVARCHAR" />
+    <result column="div_common_problems" property="divCommonProblems" jdbcType="LONGVARCHAR" />
+    <result column="div__travel_characteristic" property="divTravelCharacteristic" jdbcType="LONGVARCHAR" />
+    <result column="div_cancel_order" property="divCancelOrder" jdbcType="LONGVARCHAR" />
+    <result column="div_explain" property="divExplain" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, product_id, team_member_upper_limit, sign_up_people, gathering_place, disbanded_place, 
+    travel_topo_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    div_baomingwuyou, div_tiyanwuyou, div_jiagewuyou, div_common_problems, div__travel_characteristic, 
+    div_cancel_order, div_explain
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.lexiang.vertx.web.entity.ProductDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from product_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lexiang.vertx.web.entity.ProductDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="com.lexiang.vertx.web.entity.ProductDetailKey" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from product_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lexiang.vertx.web.entity.ProductDetailKey" >
+    delete from product_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lexiang.vertx.web.entity.ProductDetailExample" >
+    delete from product_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lexiang.vertx.web.entity.ProductDetailWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
+    insert into product_detail (product_id, team_member_upper_limit, 
+      sign_up_people, gathering_place, disbanded_place, 
+      travel_topo_id, div_baomingwuyou, div_tiyanwuyou, 
+      div_jiagewuyou, div_common_problems, 
+      div__travel_characteristic, div_cancel_order, 
+      div_explain)
+    values (#{productId,jdbcType=INTEGER}, #{teamMemberUpperLimit,jdbcType=INTEGER}, 
+      #{signUpPeople,jdbcType=VARCHAR}, #{gatheringPlace,jdbcType=VARCHAR}, #{disbandedPlace,jdbcType=VARCHAR}, 
+      #{travelTopoId,jdbcType=INTEGER}, #{divBaomingwuyou,jdbcType=LONGVARCHAR}, #{divTiyanwuyou,jdbcType=LONGVARCHAR}, 
+      #{divJiagewuyou,jdbcType=LONGVARCHAR}, #{divCommonProblems,jdbcType=LONGVARCHAR}, 
+      #{divTravelCharacteristic,jdbcType=LONGVARCHAR}, #{divCancelOrder,jdbcType=LONGVARCHAR}, 
+      #{divExplain,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lexiang.vertx.web.entity.ProductDetailWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
+    insert into product_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="teamMemberUpperLimit != null" >
+        team_member_upper_limit,
+      </if>
+      <if test="signUpPeople != null" >
+        sign_up_people,
+      </if>
+      <if test="gatheringPlace != null" >
+        gathering_place,
+      </if>
+      <if test="disbandedPlace != null" >
+        disbanded_place,
+      </if>
+      <if test="travelTopoId != null" >
+        travel_topo_id,
+      </if>
+      <if test="divBaomingwuyou != null" >
+        div_baomingwuyou,
+      </if>
+      <if test="divTiyanwuyou != null" >
+        div_tiyanwuyou,
+      </if>
+      <if test="divJiagewuyou != null" >
+        div_jiagewuyou,
+      </if>
+      <if test="divCommonProblems != null" >
+        div_common_problems,
+      </if>
+      <if test="divTravelCharacteristic != null" >
+        div__travel_characteristic,
+      </if>
+      <if test="divCancelOrder != null" >
+        div_cancel_order,
+      </if>
+      <if test="divExplain != null" >
+        div_explain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="teamMemberUpperLimit != null" >
+        #{teamMemberUpperLimit,jdbcType=INTEGER},
+      </if>
+      <if test="signUpPeople != null" >
+        #{signUpPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="gatheringPlace != null" >
+        #{gatheringPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="disbandedPlace != null" >
+        #{disbandedPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="travelTopoId != null" >
+        #{travelTopoId,jdbcType=INTEGER},
+      </if>
+      <if test="divBaomingwuyou != null" >
+        #{divBaomingwuyou,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="divTiyanwuyou != null" >
+        #{divTiyanwuyou,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="divJiagewuyou != null" >
+        #{divJiagewuyou,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="divCommonProblems != null" >
+        #{divCommonProblems,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="divTravelCharacteristic != null" >
+        #{divTravelCharacteristic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="divCancelOrder != null" >
+        #{divCancelOrder,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="divExplain != null" >
+        #{divExplain,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lexiang.vertx.web.entity.ProductDetailExample" resultType="java.lang.Integer" >
+    select count(*) from product_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update product_detail
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.teamMemberUpperLimit != null" >
+        team_member_upper_limit = #{record.teamMemberUpperLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.signUpPeople != null" >
+        sign_up_people = #{record.signUpPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatheringPlace != null" >
+        gathering_place = #{record.gatheringPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disbandedPlace != null" >
+        disbanded_place = #{record.disbandedPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.travelTopoId != null" >
+        travel_topo_id = #{record.travelTopoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.divBaomingwuyou != null" >
+        div_baomingwuyou = #{record.divBaomingwuyou,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.divTiyanwuyou != null" >
+        div_tiyanwuyou = #{record.divTiyanwuyou,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.divJiagewuyou != null" >
+        div_jiagewuyou = #{record.divJiagewuyou,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.divCommonProblems != null" >
+        div_common_problems = #{record.divCommonProblems,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.divTravelCharacteristic != null" >
+        div__travel_characteristic = #{record.divTravelCharacteristic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.divCancelOrder != null" >
+        div_cancel_order = #{record.divCancelOrder,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.divExplain != null" >
+        div_explain = #{record.divExplain,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update product_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      team_member_upper_limit = #{record.teamMemberUpperLimit,jdbcType=INTEGER},
+      sign_up_people = #{record.signUpPeople,jdbcType=VARCHAR},
+      gathering_place = #{record.gatheringPlace,jdbcType=VARCHAR},
+      disbanded_place = #{record.disbandedPlace,jdbcType=VARCHAR},
+      travel_topo_id = #{record.travelTopoId,jdbcType=INTEGER},
+      div_baomingwuyou = #{record.divBaomingwuyou,jdbcType=LONGVARCHAR},
+      div_tiyanwuyou = #{record.divTiyanwuyou,jdbcType=LONGVARCHAR},
+      div_jiagewuyou = #{record.divJiagewuyou,jdbcType=LONGVARCHAR},
+      div_common_problems = #{record.divCommonProblems,jdbcType=LONGVARCHAR},
+      div__travel_characteristic = #{record.divTravelCharacteristic,jdbcType=LONGVARCHAR},
+      div_cancel_order = #{record.divCancelOrder,jdbcType=LONGVARCHAR},
+      div_explain = #{record.divExplain,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update product_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      team_member_upper_limit = #{record.teamMemberUpperLimit,jdbcType=INTEGER},
+      sign_up_people = #{record.signUpPeople,jdbcType=VARCHAR},
+      gathering_place = #{record.gatheringPlace,jdbcType=VARCHAR},
+      disbanded_place = #{record.disbandedPlace,jdbcType=VARCHAR},
+      travel_topo_id = #{record.travelTopoId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lexiang.vertx.web.entity.ProductDetailWithBLOBs" >
+    update product_detail
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="teamMemberUpperLimit != null" >
+        team_member_upper_limit = #{teamMemberUpperLimit,jdbcType=INTEGER},
+      </if>
+      <if test="signUpPeople != null" >
+        sign_up_people = #{signUpPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="gatheringPlace != null" >
+        gathering_place = #{gatheringPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="disbandedPlace != null" >
+        disbanded_place = #{disbandedPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="travelTopoId != null" >
+        travel_topo_id = #{travelTopoId,jdbcType=INTEGER},
+      </if>
+      <if test="divBaomingwuyou != null" >
+        div_baomingwuyou = #{divBaomingwuyou,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="divTiyanwuyou != null" >
+        div_tiyanwuyou = #{divTiyanwuyou,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="divJiagewuyou != null" >
+        div_jiagewuyou = #{divJiagewuyou,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="divCommonProblems != null" >
+        div_common_problems = #{divCommonProblems,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="divTravelCharacteristic != null" >
+        div__travel_characteristic = #{divTravelCharacteristic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="divCancelOrder != null" >
+        div_cancel_order = #{divCancelOrder,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="divExplain != null" >
+        div_explain = #{divExplain,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lexiang.vertx.web.entity.ProductDetailWithBLOBs" >
+    update product_detail
+    set product_id = #{productId,jdbcType=INTEGER},
+      team_member_upper_limit = #{teamMemberUpperLimit,jdbcType=INTEGER},
+      sign_up_people = #{signUpPeople,jdbcType=VARCHAR},
+      gathering_place = #{gatheringPlace,jdbcType=VARCHAR},
+      disbanded_place = #{disbandedPlace,jdbcType=VARCHAR},
+      travel_topo_id = #{travelTopoId,jdbcType=INTEGER},
+      div_baomingwuyou = #{divBaomingwuyou,jdbcType=LONGVARCHAR},
+      div_tiyanwuyou = #{divTiyanwuyou,jdbcType=LONGVARCHAR},
+      div_jiagewuyou = #{divJiagewuyou,jdbcType=LONGVARCHAR},
+      div_common_problems = #{divCommonProblems,jdbcType=LONGVARCHAR},
+      div__travel_characteristic = #{divTravelCharacteristic,jdbcType=LONGVARCHAR},
+      div_cancel_order = #{divCancelOrder,jdbcType=LONGVARCHAR},
+      div_explain = #{divExplain,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lexiang.vertx.web.entity.ProductDetail" >
+    update product_detail
+    set product_id = #{productId,jdbcType=INTEGER},
+      team_member_upper_limit = #{teamMemberUpperLimit,jdbcType=INTEGER},
+      sign_up_people = #{signUpPeople,jdbcType=VARCHAR},
+      gathering_place = #{gatheringPlace,jdbcType=VARCHAR},
+      disbanded_place = #{disbandedPlace,jdbcType=VARCHAR},
+      travel_topo_id = #{travelTopoId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lexiang.vertx.web.mapper.PriceTagMapper" >
+  <resultMap id="BaseResultMap" type="com.lexiang.vertx.web.entity.PriceTag" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
+    <result column="tag_describe" property="tagDescribe" jdbcType="VARCHAR" />
+    <result column="tag_photo" property="tagPhoto" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, tag_name, tag_describe, tag_photo
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lexiang.vertx.web.entity.PriceTagExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from price_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.lexiang.vertx.web.entity.PriceTagKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from price_tag
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lexiang.vertx.web.entity.PriceTagKey" >
+    delete from price_tag
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lexiang.vertx.web.entity.PriceTagExample" >
+    delete from price_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lexiang.vertx.web.entity.PriceTag" useGeneratedKeys="true" keyProperty="id" >
+    insert into price_tag (tag_name, tag_describe, tag_photo
+      )
+    values (#{tagName,jdbcType=VARCHAR}, #{tagDescribe,jdbcType=VARCHAR}, #{tagPhoto,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lexiang.vertx.web.entity.PriceTag" useGeneratedKeys="true" keyProperty="id" >
+    insert into price_tag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tagName != null" >
+        tag_name,
+      </if>
+      <if test="tagDescribe != null" >
+        tag_describe,
+      </if>
+      <if test="tagPhoto != null" >
+        tag_photo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tagName != null" >
+        #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="tagDescribe != null" >
+        #{tagDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="tagPhoto != null" >
+        #{tagPhoto,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lexiang.vertx.web.entity.PriceTagExample" resultType="java.lang.Integer" >
+    select count(*) from price_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update price_tag
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.tagName != null" >
+        tag_name = #{record.tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tagDescribe != null" >
+        tag_describe = #{record.tagDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tagPhoto != null" >
+        tag_photo = #{record.tagPhoto,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update price_tag
+    set id = #{record.id,jdbcType=INTEGER},
+      tag_name = #{record.tagName,jdbcType=VARCHAR},
+      tag_describe = #{record.tagDescribe,jdbcType=VARCHAR},
+      tag_photo = #{record.tagPhoto,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lexiang.vertx.web.entity.PriceTag" >
+    update price_tag
+    <set >
+      <if test="tagName != null" >
+        tag_name = #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="tagDescribe != null" >
+        tag_describe = #{tagDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="tagPhoto != null" >
+        tag_photo = #{tagPhoto,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lexiang.vertx.web.entity.PriceTag" >
+    update price_tag
+    set tag_name = #{tagName,jdbcType=VARCHAR},
+      tag_describe = #{tagDescribe,jdbcType=VARCHAR},
+      tag_photo = #{tagPhoto,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

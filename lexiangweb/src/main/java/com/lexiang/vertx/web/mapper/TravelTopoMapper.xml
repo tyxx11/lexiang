@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lexiang.vertx.web.mapper.TravelTopoMapper" >
+  <resultMap id="BaseResultMap" type="com.lexiang.vertx.web.entity.TravelTopo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="travel_date" property="travelDate" jdbcType="VARCHAR" />
+    <result column="photo_address" property="photoAddress" jdbcType="VARCHAR" />
+    <result column="accommodation" property="accommodation" jdbcType="VARCHAR" />
+    <result column="food" property="food" jdbcType="VARCHAR" />
+    <result column="range_of_driving" property="rangeOfDriving" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lexiang.vertx.web.entity.TravelTopoWithBLOBs" extends="BaseResultMap" >
+    <result column="div1" property="div1" jdbcType="LONGVARCHAR" />
+    <result column="div2" property="div2" jdbcType="LONGVARCHAR" />
+    <result column="div3" property="div3" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, product_id, name, travel_date, photo_address, accommodation, food, range_of_driving
+  </sql>
+  <sql id="Blob_Column_List" >
+    div1, div2, div3
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.lexiang.vertx.web.entity.TravelTopoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from travel_topo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lexiang.vertx.web.entity.TravelTopoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from travel_topo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="com.lexiang.vertx.web.entity.TravelTopoKey" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from travel_topo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lexiang.vertx.web.entity.TravelTopoKey" >
+    delete from travel_topo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lexiang.vertx.web.entity.TravelTopoExample" >
+    delete from travel_topo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lexiang.vertx.web.entity.TravelTopoWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
+    insert into travel_topo (product_id, name, travel_date, 
+      photo_address, accommodation, food, 
+      range_of_driving, div1, div2, 
+      div3)
+    values (#{productId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{travelDate,jdbcType=VARCHAR}, 
+      #{photoAddress,jdbcType=VARCHAR}, #{accommodation,jdbcType=VARCHAR}, #{food,jdbcType=VARCHAR}, 
+      #{rangeOfDriving,jdbcType=VARCHAR}, #{div1,jdbcType=LONGVARCHAR}, #{div2,jdbcType=LONGVARCHAR}, 
+      #{div3,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lexiang.vertx.web.entity.TravelTopoWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
+    insert into travel_topo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="travelDate != null" >
+        travel_date,
+      </if>
+      <if test="photoAddress != null" >
+        photo_address,
+      </if>
+      <if test="accommodation != null" >
+        accommodation,
+      </if>
+      <if test="food != null" >
+        food,
+      </if>
+      <if test="rangeOfDriving != null" >
+        range_of_driving,
+      </if>
+      <if test="div1 != null" >
+        div1,
+      </if>
+      <if test="div2 != null" >
+        div2,
+      </if>
+      <if test="div3 != null" >
+        div3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="travelDate != null" >
+        #{travelDate,jdbcType=VARCHAR},
+      </if>
+      <if test="photoAddress != null" >
+        #{photoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="accommodation != null" >
+        #{accommodation,jdbcType=VARCHAR},
+      </if>
+      <if test="food != null" >
+        #{food,jdbcType=VARCHAR},
+      </if>
+      <if test="rangeOfDriving != null" >
+        #{rangeOfDriving,jdbcType=VARCHAR},
+      </if>
+      <if test="div1 != null" >
+        #{div1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="div2 != null" >
+        #{div2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="div3 != null" >
+        #{div3,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lexiang.vertx.web.entity.TravelTopoExample" resultType="java.lang.Integer" >
+    select count(*) from travel_topo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update travel_topo
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.travelDate != null" >
+        travel_date = #{record.travelDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photoAddress != null" >
+        photo_address = #{record.photoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accommodation != null" >
+        accommodation = #{record.accommodation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.food != null" >
+        food = #{record.food,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rangeOfDriving != null" >
+        range_of_driving = #{record.rangeOfDriving,jdbcType=VARCHAR},
+      </if>
+      <if test="record.div1 != null" >
+        div1 = #{record.div1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.div2 != null" >
+        div2 = #{record.div2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.div3 != null" >
+        div3 = #{record.div3,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update travel_topo
+    set id = #{record.id,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      travel_date = #{record.travelDate,jdbcType=VARCHAR},
+      photo_address = #{record.photoAddress,jdbcType=VARCHAR},
+      accommodation = #{record.accommodation,jdbcType=VARCHAR},
+      food = #{record.food,jdbcType=VARCHAR},
+      range_of_driving = #{record.rangeOfDriving,jdbcType=VARCHAR},
+      div1 = #{record.div1,jdbcType=LONGVARCHAR},
+      div2 = #{record.div2,jdbcType=LONGVARCHAR},
+      div3 = #{record.div3,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update travel_topo
+    set id = #{record.id,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      travel_date = #{record.travelDate,jdbcType=VARCHAR},
+      photo_address = #{record.photoAddress,jdbcType=VARCHAR},
+      accommodation = #{record.accommodation,jdbcType=VARCHAR},
+      food = #{record.food,jdbcType=VARCHAR},
+      range_of_driving = #{record.rangeOfDriving,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lexiang.vertx.web.entity.TravelTopoWithBLOBs" >
+    update travel_topo
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="travelDate != null" >
+        travel_date = #{travelDate,jdbcType=VARCHAR},
+      </if>
+      <if test="photoAddress != null" >
+        photo_address = #{photoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="accommodation != null" >
+        accommodation = #{accommodation,jdbcType=VARCHAR},
+      </if>
+      <if test="food != null" >
+        food = #{food,jdbcType=VARCHAR},
+      </if>
+      <if test="rangeOfDriving != null" >
+        range_of_driving = #{rangeOfDriving,jdbcType=VARCHAR},
+      </if>
+      <if test="div1 != null" >
+        div1 = #{div1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="div2 != null" >
+        div2 = #{div2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="div3 != null" >
+        div3 = #{div3,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lexiang.vertx.web.entity.TravelTopoWithBLOBs" >
+    update travel_topo
+    set product_id = #{productId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      travel_date = #{travelDate,jdbcType=VARCHAR},
+      photo_address = #{photoAddress,jdbcType=VARCHAR},
+      accommodation = #{accommodation,jdbcType=VARCHAR},
+      food = #{food,jdbcType=VARCHAR},
+      range_of_driving = #{rangeOfDriving,jdbcType=VARCHAR},
+      div1 = #{div1,jdbcType=LONGVARCHAR},
+      div2 = #{div2,jdbcType=LONGVARCHAR},
+      div3 = #{div3,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lexiang.vertx.web.entity.TravelTopo" >
+    update travel_topo
+    set product_id = #{productId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      travel_date = #{travelDate,jdbcType=VARCHAR},
+      photo_address = #{photoAddress,jdbcType=VARCHAR},
+      accommodation = #{accommodation,jdbcType=VARCHAR},
+      food = #{food,jdbcType=VARCHAR},
+      range_of_driving = #{rangeOfDriving,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
