@@ -78,6 +78,16 @@ public class ProductDetailService {
 
     }
 
+    public void saveProductDetail(ProductDetailWithBLOBs productDetailWithBLOBs){
+        ProductDetailExample example = new ProductDetailExample();
+        example.createCriteria().andIdEqualTo(productDetailWithBLOBs.getId());
+        if (productDetailWithBLOBs.getId() != null && productDetailMapper.countByExample(example)!=0){
+            productDetailMapper.updateByPrimaryKeySelective(productDetailWithBLOBs);
+        } else {
+            productDetailMapper.insertSelective(productDetailWithBLOBs);
+        }
+    }
+
     public void saveTravelTopo(TravelTopoWithBLOBs travelTopoWithBLOBs){
         TravelTopoExample example = new TravelTopoExample();
         example.createCriteria().andIdEqualTo(travelTopoWithBLOBs.getId());
@@ -106,7 +116,7 @@ public class ProductDetailService {
         if (readBeforeTravelMapper.countByExample(readBeforeTravelExample) != 0){
             readBeforeTravelMapper.updateByExampleSelective(readBeforeTravel,readBeforeTravelExample);
         }else {
-            readBeforeTravelMapper.insert(readBeforeTravel);
+            readBeforeTravelMapper.insertSelective(readBeforeTravel);
         }
     }
 
@@ -129,7 +139,7 @@ public class ProductDetailService {
         if (priceContainMapper.countByExample(priceContainExample) != 0){
             priceContainMapper.updateByExampleSelective(priceContain,priceContainExample);
         } else {
-            priceContainMapper.insert(priceContain);
+            priceContainMapper.insertSelective(priceContain);
         }
     }
 
@@ -141,7 +151,7 @@ public class ProductDetailService {
             priceTagMapper.updateByPrimaryKeySelective(priceTag);
             id = priceTag.getId();
         } else {
-            id = priceTagMapper.insert(priceTag);
+            id = priceTagMapper.insertSelective(priceTag);
         }
 
         PriceNotContainExample priceContainExample = new PriceNotContainExample();
@@ -152,7 +162,7 @@ public class ProductDetailService {
         if (priceNotContainMapper.countByExample(priceContainExample) != 0){
             priceNotContainMapper.updateByExampleSelective(priceNotContain,priceContainExample);
         } else {
-            priceNotContainMapper.insert(priceNotContain);
+            priceNotContainMapper.insertSelective(priceNotContain);
         }
     }
 

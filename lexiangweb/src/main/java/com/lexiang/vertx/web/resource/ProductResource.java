@@ -93,6 +93,8 @@ public class ProductResource {
         detailWithBLOBs.setSignUpPeople(productDetail.getString("signup_people"));
         detailWithBLOBs.setTeamMemberUpperLimit(productDetail.getInteger("team_member_upper_limit"));
 
+        productDetailService.saveProductDetail(detailWithBLOBs);
+
         List<TravelTopoWithBLOBs> travelTopoList = Jsons.objectFromJSONStr(json.getValue("travel_topo").toString(), List.class);
         for (TravelTopoWithBLOBs travelTopoWithBLOBs : travelTopoList){
             productDetailService.saveTravelTopo(travelTopoWithBLOBs);
