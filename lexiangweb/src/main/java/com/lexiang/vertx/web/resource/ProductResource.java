@@ -5,12 +5,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.lexiang.vertx.web.entity.LexiangProduct;
-import com.lexiang.vertx.web.entity.LexiangProductWithBLOBs;
-import com.lexiang.vertx.web.entity.Lunbo;
-import com.lexiang.vertx.web.entity.Photos;
+import com.lexiang.vertx.web.entity.*;
 import com.lexiang.vertx.web.service.HomePageService;
+import com.lexiang.vertx.web.service.ProductDetailService;
 import com.lexiang.vertx.web.service.ProductService;
+import com.lexiang.vertx.web.utils.Jsons;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.FileUpload;
 import io.vertx.ext.web.RoutingContext;
@@ -36,6 +35,9 @@ public class ProductResource {
 
     @Inject
     HomePageService homePageService;
+
+    @Inject
+    ProductDetailService productDetailService;
 
 
     @POST
@@ -68,6 +70,52 @@ public class ProductResource {
             productService.update(product);
         }
         ctx.response().end("update ok;");
+    }
+
+    @POST
+    @Path("detail")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void createDetail(RoutingContext ctx) {
+        JsonObject json = ctx.getBodyAsJson();
+        ProductDetailWithBLOBs detailWithBLOBs = new ProductDetailWithBLOBs();
+        JsonObject productDetail = json.getJsonObject("product_detail");
+        int productId = productDetail.getInteger("product_id");
+        detailWithBLOBs.setProductId(productId);
+        detailWithBLOBs.setDivBaomingwuyou(productDetail.getString("baomingwuyou"));
+        detailWithBLOBs.setDivCancelOrder(productDetail.getString("cancel_order"));
+        detailWithBLOBs.setDivCommonProblems(productDetail.getString("common_problem"));
+        detailWithBLOBs.setDivJiagewuyou(productDetail.getString("jiagewuyou"));
+        detailWithBLOBs.setDivTiyanwuyou(productDetail.getString("tiyanwuyou"));
+        detailWithBLOBs.setDivExplain(productDetail.getString("div_explain"));
+        detailWithBLOBs.setDivTravelCharacteristic(productDetail.getString("div_travel_character"));
+        detailWithBLOBs.setDisbandedPlace(productDetail.getString("disbanded_place"));
+        detailWithBLOBs.setGatheringPlace(productDetail.getString("gathering_place"));
+        detailWithBLOBs.setSignUpPeople(productDetail.getString("signup_people"));
+        detailWithBLOBs.setTeamMemberUpperLimit(productDetail.getInteger("team_member_upper_limit"));
+
+        List<TravelTopoWithBLOBs> travelTopoList = Jsons.objectFromJSONStr(json.getValue("travel_topo").toString(), List.class);
+        for (TravelTopoWithBLOBs travelTopoWithBLOBs : travelTopoList){
+            productDetailService.saveTravelTopo(travelTopoWithBLOBs);
+        }
+
+        List<ReadBeforeTravelTagWithBLOBs> readBeforeTravelTagList = Jsons.objectFromJSONStr(
+                json.getValue("read_before_travel_tags").toString(), List.class);
+        for(ReadBeforeTravelTagWithBLOBs readBeforeTravelTag : readBeforeTravelTagList){
+            productDetailService.saveReadBeforeTravelTags(productId,readBeforeTravelTag);
+        }
+
+        List<PriceTag> priceTagList = Jsons.objectFromJSONStr(
+                json.getValue("price_contain_tags").toString(), List.class);
+        for (PriceTag priceTag : priceTagList){
+            productDetailService.savePriceContainTags(productId,priceTag);
+        }
+
+        List<PriceTag> priceNotContainTagList = Jsons.objectFromJSONStr(
+                json.getValue("price_not_contain_tags").toString(), List.class);
+        for (PriceTag priceTag : priceNotContainTagList){
+            productDetailService.savePriceNotContainTags(productId,priceTag);
+        }
+
     }
 
     @GET

@@ -78,4 +78,82 @@ public class ProductDetailService {
 
     }
 
+    public void saveTravelTopo(TravelTopoWithBLOBs travelTopoWithBLOBs){
+        TravelTopoExample example = new TravelTopoExample();
+        example.createCriteria().andIdEqualTo(travelTopoWithBLOBs.getId());
+        if (travelTopoWithBLOBs.getId() != null && travelTopoMapper.countByExample(example) != 0){
+            travelTopoMapper.updateByPrimaryKeySelective(travelTopoWithBLOBs);
+            return;
+        }
+        travelTopoMapper.insertSelective(travelTopoWithBLOBs);
+    }
+
+    public void saveReadBeforeTravelTags(int productId, ReadBeforeTravelTagWithBLOBs readBeforeTravelTagWithBLOBs){
+        ReadBeforeTravelTagExample example = new ReadBeforeTravelTagExample();
+        example.createCriteria().andIdEqualTo(readBeforeTravelTagWithBLOBs.getId());
+        int id;
+        if (readBeforeTravelTagWithBLOBs.getId() != null && readBeforeTravelTagMapper.countByExample(example) != 0){
+            readBeforeTravelTagMapper.updateByPrimaryKeySelective(readBeforeTravelTagWithBLOBs);
+            id = readBeforeTravelTagWithBLOBs.getId();
+        } else {
+            id = readBeforeTravelTagMapper.insertSelective(readBeforeTravelTagWithBLOBs);
+        }
+        ReadBeforeTravel readBeforeTravel = new ReadBeforeTravel();
+        readBeforeTravel.setProductId(productId);
+        readBeforeTravel.setTagId(id);
+        ReadBeforeTravelExample readBeforeTravelExample = new ReadBeforeTravelExample();
+        readBeforeTravelExample.createCriteria().andProductIdEqualTo(productId).andTagIdEqualTo(id);
+        if (readBeforeTravelMapper.countByExample(readBeforeTravelExample) != 0){
+            readBeforeTravelMapper.updateByExampleSelective(readBeforeTravel,readBeforeTravelExample);
+        }else {
+            readBeforeTravelMapper.insert(readBeforeTravel);
+        }
+    }
+
+    public void savePriceContainTags(int productId, PriceTag priceTag){
+        PriceTagExample example = new PriceTagExample();
+        int id;
+        example.createCriteria().andIdEqualTo(priceTag.getId());
+        if (priceTag.getId() != null && priceTagMapper.countByExample(example) != 0){
+            priceTagMapper.updateByPrimaryKeySelective(priceTag);
+            id = priceTag.getId();
+        } else {
+            id = priceTagMapper.insert(priceTag);
+        }
+
+        PriceContainExample priceContainExample = new PriceContainExample();
+        PriceContain priceContain = new PriceContain();
+        priceContain.setProductId(productId);
+        priceContain.setTagId(id);
+        priceContainExample.createCriteria().andProductIdEqualTo(productId).andTagIdEqualTo(id);
+        if (priceContainMapper.countByExample(priceContainExample) != 0){
+            priceContainMapper.updateByExampleSelective(priceContain,priceContainExample);
+        } else {
+            priceContainMapper.insert(priceContain);
+        }
+    }
+
+    public void savePriceNotContainTags(int productId, PriceTag priceTag){
+        PriceTagExample example = new PriceTagExample();
+        int id;
+        example.createCriteria().andIdEqualTo(priceTag.getId());
+        if (priceTag.getId() != null && priceTagMapper.countByExample(example) != 0){
+            priceTagMapper.updateByPrimaryKeySelective(priceTag);
+            id = priceTag.getId();
+        } else {
+            id = priceTagMapper.insert(priceTag);
+        }
+
+        PriceNotContainExample priceContainExample = new PriceNotContainExample();
+        PriceNotContain priceNotContain = new PriceNotContain();
+        priceNotContain.setProductId(productId);
+        priceNotContain.setTagId(id);
+        priceContainExample.createCriteria().andProductIdEqualTo(productId).andTagIdEqualTo(id);
+        if (priceNotContainMapper.countByExample(priceContainExample) != 0){
+            priceNotContainMapper.updateByExampleSelective(priceNotContain,priceContainExample);
+        } else {
+            priceNotContainMapper.insert(priceNotContain);
+        }
+    }
+
 }
