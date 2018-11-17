@@ -93,7 +93,7 @@ drop table if exists travel_topo;
 create table travel_topo(
   id int primary key auto_increment,
   product_id int,
-  name varchar(24),
+  name varchar(128),
   travel_date varchar(24),
   photo_address varchar(128),
   accommodation varchar(64),

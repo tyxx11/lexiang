@@ -35,7 +35,8 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.0
  */
 public class BootStrap extends AbstractVerticle{
-    private final static Logger logger = LoggerFactory.getLogger(BootStrap.class);
+    private final static Logger logger =
+        LoggerFactory.getLogger(BootStrap.class);
     private Injector injector;
     private final ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 100, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(10000));
     private final Scheduler scheduler = Schedulers.from(executor);

@@ -23,5 +23,15 @@
         <mapper class="com.lexiang.vertx.web.mapper.HomePageContentMapper"/>
         <mapper class="com.lexiang.vertx.web.mapper.LunboMapper"/>
         <mapper class="com.lexiang.vertx.web.mapper.TrvalTypeMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.ReadBeforeTravelMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.TravelTopoMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.PriceContainMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.PriceNotContainMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.PriceTagMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.ProductCommentsMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.ProductDetailMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.ReadBeforeTravelTagMapper"/>
+
+
     </mappers>
 </configuration>

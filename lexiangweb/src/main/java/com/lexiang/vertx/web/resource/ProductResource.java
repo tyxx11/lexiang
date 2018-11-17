@@ -13,6 +13,7 @@ import com.lexiang.vertx.web.utils.Jsons;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.FileUpload;
 import io.vertx.ext.web.RoutingContext;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,29 +96,60 @@ public class ProductResource {
 
         productDetailService.saveProductDetail(detailWithBLOBs);
 
-        List<TravelTopoWithBLOBs> travelTopoList = Jsons.objectFromJSONStr(json.getValue("travel_topo").toString(), List.class);
-        for (TravelTopoWithBLOBs travelTopoWithBLOBs : travelTopoList){
+        List<Map<String,Object>> travelTopoList = Jsons.objectFromJSONStr(json.getValue("travel_topo").toString(), List.class);
+        for (Map<String,Object> map : travelTopoList){
+            TravelTopoWithBLOBs travelTopoWithBLOBs = new TravelTopoWithBLOBs();
+            travelTopoWithBLOBs.setDiv1(map.get("div1").toString());
+            travelTopoWithBLOBs.setDiv2(map.get("div2").toString());
+            travelTopoWithBLOBs.setDiv3(map.get("div3").toString());
+            travelTopoWithBLOBs.setName(map.get("name").toString());
+            travelTopoWithBLOBs.setFood(String.valueOf(map.get("food")));
+            travelTopoWithBLOBs.setAccommodation(String.valueOf(map.get("accommodation").toString()));
+            travelTopoWithBLOBs.setProductId(productId);
+            travelTopoWithBLOBs.setPhotoAddress(String.valueOf(map.get("photoAddress").toString()));
+            travelTopoWithBLOBs.setRangeOfDriving(String.valueOf(map.get("rangeOfDriving").toString()));
+            travelTopoWithBLOBs.setRangeOfDriving(String.valueOf(map.get("travelDate").toString()));
             productDetailService.saveTravelTopo(travelTopoWithBLOBs);
         }
 
-        List<ReadBeforeTravelTagWithBLOBs> readBeforeTravelTagList = Jsons.objectFromJSONStr(
+        List<Map<String,Object>> readBeforeTravelTagList = Jsons.objectFromJSONStr(
                 json.getValue("read_before_travel_tags").toString(), List.class);
-        for(ReadBeforeTravelTagWithBLOBs readBeforeTravelTag : readBeforeTravelTagList){
+        for(Map<String,Object> map : readBeforeTravelTagList){
+            ReadBeforeTravelTagWithBLOBs readBeforeTravelTag = new ReadBeforeTravelTagWithBLOBs();
+            readBeforeTravelTag.setTagDescribe(String.valueOf(map.get("tagDescribe")));
+            readBeforeTravelTag.setTagName(String.valueOf(map.get("tagName")));
             productDetailService.saveReadBeforeTravelTags(productId,readBeforeTravelTag);
         }
 
-        List<PriceTag> priceTagList = Jsons.objectFromJSONStr(
+        List<Map<String,Object>> priceTagList = Jsons.objectFromJSONStr(
                 json.getValue("price_contain_tags").toString(), List.class);
-        for (PriceTag priceTag : priceTagList){
+        for (Map<String,Object> map : priceTagList){
+            PriceTag priceTag = new PriceTag();
+            priceTag.setTagDescribe(String.valueOf(map.get("tagDescribe")));
+            priceTag.setTagName(String.valueOf(map.get("tagName")));
+            priceTag.setTagPhoto(String.valueOf(map.get("tagPhoto")));
+
             productDetailService.savePriceContainTags(productId,priceTag);
         }
 
-        List<PriceTag> priceNotContainTagList = Jsons.objectFromJSONStr(
+        List<Map<String,Object>> priceNotContainTagList = Jsons.objectFromJSONStr(
                 json.getValue("price_not_contain_tags").toString(), List.class);
-        for (PriceTag priceTag : priceNotContainTagList){
+        for (Map<String,Object> map : priceNotContainTagList){
+            PriceTag priceTag = new PriceTag();
+            priceTag.setTagDescribe(String.valueOf(map.get("tagDescribe")));
+            priceTag.setTagName(String.valueOf(map.get("tagName")));
+            priceTag.setTagPhoto(String.valueOf(map.get("tagPhoto")));
             productDetailService.savePriceNotContainTags(productId,priceTag);
         }
+        ctx.response().end("save ok;");
+    }
 
+    @GET
+    @Path("detail/:productId")
+    public void getDetail(RoutingContext ctx){
+        int productId = Integer.parseInt(ctx.request().getParam("productId"));
+        Map<String,Object> map = productDetailService.getProductDetail(productId);
+        ctx.response().end(JSON.toJSONString(map));
     }
 
     @GET
@@ -131,7 +163,8 @@ public class ProductResource {
     @Path("productShow")
     public void getProductShowPage(RoutingContext ctx) {
         List<LexiangProductWithBLOBs> lexiangProductList = productService.getAll();
-        Map<String,Object> map =homePageService.getNavigatorAndSysTemSetting();
+        //Map<String,Object> map =homePageService.getNavigatorAndSysTemSetting();
+        Map<String,Object> map = Maps.newHashMap();
         map.put("products", lexiangProductList);
         List<Lunbo> lunboList = productService.getProductShowLunbo();
         map.put("lunbos", lunboList);
