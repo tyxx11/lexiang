@@ -149,7 +149,7 @@ public class ProductResource {
     public void getDetail(RoutingContext ctx){
         int productId = Integer.parseInt(ctx.request().getParam("productId"));
         Map<String,Object> map = productDetailService.getProductDetail(productId);
-        ctx.response().end(JSON.toJSONString(map));
+        ctx.response().putHeader("content-type", "application/json; charset=utf-8").end(JSON.toJSONString(map));
     }
 
     @GET
