@@ -51,6 +51,12 @@ public class ProductService {
         return productMapper.selectByExample(example);
     }
 
+    public LexiangProduct getById(int productId){
+        LexiangProductKey key = new LexiangProductKey();
+        key.setId(productId);
+        return productMapper.selectByPrimaryKey(key);
+    }
+
     public List<Lunbo> getProductShowLunbo(){
         LunboExample example = new LunboExample();
         example.createCriteria().andStatusEqualTo(0).andAttributeEqualTo(Commons.attribute_productShow_lunbo);
