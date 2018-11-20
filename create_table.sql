@@ -143,14 +143,10 @@ create table read_before_travel_tag(
   tag_describe text
 )DEFAULT CHARSET=utf8;
 
-create table custom_story(
+create table customer_story(
   id int primary key auto_increment,
-  pic1_address varchar(128),
-  div1 text,
-  pic2_address varchar(128),
-  div2 text,
-  pic3_address varchar(128),
-  div3 text,
-  pic4_address varchar(128),
-  div4 text
+  pic_address varchar(128),
+  div_customer text,
+  time_stamp timestamp,
+  status int
 )DEFAULT CHARSET=utf8;

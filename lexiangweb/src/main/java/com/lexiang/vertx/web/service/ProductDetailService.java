@@ -80,9 +80,13 @@ public class ProductDetailService {
 
     public void saveProductDetail(ProductDetailWithBLOBs productDetailWithBLOBs){
         ProductDetailExample example = new ProductDetailExample();
-        if (productDetailWithBLOBs.getId() != null && productDetailMapper.countByExample(example)!=0){
+        if (productDetailWithBLOBs.getId() != null ){
             example.createCriteria().andIdEqualTo(productDetailWithBLOBs.getId());
-            productDetailMapper.updateByPrimaryKeySelective(productDetailWithBLOBs);
+            if (productDetailMapper.countByExample(example)!=0){
+                productDetailMapper.updateByPrimaryKeySelective(productDetailWithBLOBs);
+            } else {
+                productDetailMapper.insertSelective(productDetailWithBLOBs);
+            }
         } else {
             productDetailMapper.insertSelective(productDetailWithBLOBs);
         }
@@ -90,10 +94,12 @@ public class ProductDetailService {
 
     public void saveTravelTopo(TravelTopoWithBLOBs travelTopoWithBLOBs){
         TravelTopoExample example = new TravelTopoExample();
-        if (travelTopoWithBLOBs.getId() != null && travelTopoMapper.countByExample(example) != 0){
+        if (travelTopoWithBLOBs.getId() != null){
             example.createCriteria().andIdEqualTo(travelTopoWithBLOBs.getId());
-            travelTopoMapper.updateByPrimaryKeySelective(travelTopoWithBLOBs);
-            return;
+            if (travelTopoMapper.countByExample(example) != 0){
+                travelTopoMapper.updateByPrimaryKeySelective(travelTopoWithBLOBs);
+                return;
+            }
         }
         travelTopoMapper.insertSelective(travelTopoWithBLOBs);
     }
@@ -101,10 +107,14 @@ public class ProductDetailService {
     public void saveReadBeforeTravelTags(int productId, ReadBeforeTravelTagWithBLOBs readBeforeTravelTagWithBLOBs){
         ReadBeforeTravelTagExample example = new ReadBeforeTravelTagExample();
         int id;
-        if (readBeforeTravelTagWithBLOBs.getId() != null && readBeforeTravelTagMapper.countByExample(example) != 0){
+        if (readBeforeTravelTagWithBLOBs.getId() != null ){
             example.createCriteria().andIdEqualTo(readBeforeTravelTagWithBLOBs.getId());
-            readBeforeTravelTagMapper.updateByPrimaryKeySelective(readBeforeTravelTagWithBLOBs);
-            id = readBeforeTravelTagWithBLOBs.getId();
+            if (readBeforeTravelTagMapper.countByExample(example) != 0){
+                readBeforeTravelTagMapper.updateByPrimaryKeySelective(readBeforeTravelTagWithBLOBs);
+                id = readBeforeTravelTagWithBLOBs.getId();
+            } else {
+                id = readBeforeTravelTagMapper.insertSelective(readBeforeTravelTagWithBLOBs);
+            }
         } else {
             id = readBeforeTravelTagMapper.insertSelective(readBeforeTravelTagWithBLOBs);
         }
@@ -123,14 +133,17 @@ public class ProductDetailService {
     public void savePriceContainTags(int productId, PriceTag priceTag){
         PriceTagExample example = new PriceTagExample();
         int id;
-        if (priceTag.getId() != null && priceTagMapper.countByExample(example) != 0){
+        if (priceTag.getId() != null){
             example.createCriteria().andIdEqualTo(priceTag.getId());
-            priceTagMapper.updateByPrimaryKeySelective(priceTag);
-            id = priceTag.getId();
+            if (priceTagMapper.countByExample(example) != 0){
+                priceTagMapper.updateByPrimaryKeySelective(priceTag);
+                id = priceTag.getId();
+            } else {
+                id = priceTagMapper.insertSelective(priceTag);
+            }
         } else {
-            id = priceTagMapper.insert(priceTag);
+            id = priceTagMapper.insertSelective(priceTag);
         }
-
         PriceContainExample priceContainExample = new PriceContainExample();
         PriceContain priceContain = new PriceContain();
         priceContain.setProductId(productId);
@@ -146,10 +159,14 @@ public class ProductDetailService {
     public void savePriceNotContainTags(int productId, PriceTag priceTag){
         PriceTagExample example = new PriceTagExample();
         int id;
-        if (priceTag.getId() != null && priceTagMapper.countByExample(example) != 0){
+        if (priceTag.getId() != null){
             example.createCriteria().andIdEqualTo(priceTag.getId());
-            priceTagMapper.updateByPrimaryKeySelective(priceTag);
-            id = priceTag.getId();
+            if (priceTagMapper.countByExample(example) != 0){
+                priceTagMapper.updateByPrimaryKeySelective(priceTag);
+                id = priceTag.getId();
+            } else {
+                id = priceTagMapper.insertSelective(priceTag);
+            }
         } else {
             id = priceTagMapper.insertSelective(priceTag);
         }

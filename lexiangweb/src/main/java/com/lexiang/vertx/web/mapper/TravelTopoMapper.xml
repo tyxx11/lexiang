@@ -10,6 +10,7 @@
     <result column="accommodation" property="accommodation" jdbcType="VARCHAR" />
     <result column="food" property="food" jdbcType="VARCHAR" />
     <result column="range_of_driving" property="rangeOfDriving" jdbcType="VARCHAR" />
+    <result column="topo_alias" property="topoAlias" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.lexiang.vertx.web.entity.TravelTopoWithBLOBs" extends="BaseResultMap" >
     <result column="div1" property="div1" jdbcType="LONGVARCHAR" />
@@ -75,7 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, product_id, name, travel_date, photo_address, accommodation, food, range_of_driving
+    id, product_id, name, travel_date, photo_address, accommodation, food, range_of_driving, 
+    topo_alias
   </sql>
   <sql id="Blob_Column_List" >
     div1, div2, div3
@@ -131,12 +133,12 @@
   <insert id="insert" parameterType="com.lexiang.vertx.web.entity.TravelTopoWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
     insert into travel_topo (product_id, name, travel_date, 
       photo_address, accommodation, food, 
-      range_of_driving, div1, div2, 
-      div3)
+      range_of_driving, topo_alias, div1, 
+      div2, div3)
     values (#{productId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{travelDate,jdbcType=VARCHAR}, 
       #{photoAddress,jdbcType=VARCHAR}, #{accommodation,jdbcType=VARCHAR}, #{food,jdbcType=VARCHAR}, 
-      #{rangeOfDriving,jdbcType=VARCHAR}, #{div1,jdbcType=LONGVARCHAR}, #{div2,jdbcType=LONGVARCHAR}, 
-      #{div3,jdbcType=LONGVARCHAR})
+      #{rangeOfDriving,jdbcType=VARCHAR}, #{topoAlias,jdbcType=VARCHAR}, #{div1,jdbcType=LONGVARCHAR}, 
+      #{div2,jdbcType=LONGVARCHAR}, #{div3,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.lexiang.vertx.web.entity.TravelTopoWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
     insert into travel_topo
@@ -161,6 +163,9 @@
       </if>
       <if test="rangeOfDriving != null" >
         range_of_driving,
+      </if>
+      <if test="topoAlias != null" >
+        topo_alias,
       </if>
       <if test="div1 != null" >
         div1,
@@ -193,6 +198,9 @@
       </if>
       <if test="rangeOfDriving != null" >
         #{rangeOfDriving,jdbcType=VARCHAR},
+      </if>
+      <if test="topoAlias != null" >
+        #{topoAlias,jdbcType=VARCHAR},
       </if>
       <if test="div1 != null" >
         #{div1,jdbcType=LONGVARCHAR},
@@ -238,6 +246,9 @@
       <if test="record.rangeOfDriving != null" >
         range_of_driving = #{record.rangeOfDriving,jdbcType=VARCHAR},
       </if>
+      <if test="record.topoAlias != null" >
+        topo_alias = #{record.topoAlias,jdbcType=VARCHAR},
+      </if>
       <if test="record.div1 != null" >
         div1 = #{record.div1,jdbcType=LONGVARCHAR},
       </if>
@@ -262,6 +273,7 @@
       accommodation = #{record.accommodation,jdbcType=VARCHAR},
       food = #{record.food,jdbcType=VARCHAR},
       range_of_driving = #{record.rangeOfDriving,jdbcType=VARCHAR},
+      topo_alias = #{record.topoAlias,jdbcType=VARCHAR},
       div1 = #{record.div1,jdbcType=LONGVARCHAR},
       div2 = #{record.div2,jdbcType=LONGVARCHAR},
       div3 = #{record.div3,jdbcType=LONGVARCHAR}
@@ -278,7 +290,8 @@
       photo_address = #{record.photoAddress,jdbcType=VARCHAR},
       accommodation = #{record.accommodation,jdbcType=VARCHAR},
       food = #{record.food,jdbcType=VARCHAR},
-      range_of_driving = #{record.rangeOfDriving,jdbcType=VARCHAR}
+      range_of_driving = #{record.rangeOfDriving,jdbcType=VARCHAR},
+      topo_alias = #{record.topoAlias,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -307,6 +320,9 @@
       <if test="rangeOfDriving != null" >
         range_of_driving = #{rangeOfDriving,jdbcType=VARCHAR},
       </if>
+      <if test="topoAlias != null" >
+        topo_alias = #{topoAlias,jdbcType=VARCHAR},
+      </if>
       <if test="div1 != null" >
         div1 = #{div1,jdbcType=LONGVARCHAR},
       </if>
@@ -328,6 +344,7 @@
       accommodation = #{accommodation,jdbcType=VARCHAR},
       food = #{food,jdbcType=VARCHAR},
       range_of_driving = #{rangeOfDriving,jdbcType=VARCHAR},
+      topo_alias = #{topoAlias,jdbcType=VARCHAR},
       div1 = #{div1,jdbcType=LONGVARCHAR},
       div2 = #{div2,jdbcType=LONGVARCHAR},
       div3 = #{div3,jdbcType=LONGVARCHAR}
@@ -341,7 +358,8 @@
       photo_address = #{photoAddress,jdbcType=VARCHAR},
       accommodation = #{accommodation,jdbcType=VARCHAR},
       food = #{food,jdbcType=VARCHAR},
-      range_of_driving = #{rangeOfDriving,jdbcType=VARCHAR}
+      range_of_driving = #{rangeOfDriving,jdbcType=VARCHAR},
+      topo_alias = #{topoAlias,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

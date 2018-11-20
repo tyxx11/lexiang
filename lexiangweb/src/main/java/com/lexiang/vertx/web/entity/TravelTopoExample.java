@@ -643,6 +643,76 @@ public class TravelTopoExample {
             addCriterion("range_of_driving not between", value1, value2, "rangeOfDriving");
             return (Criteria) this;
         }
+
+        public Criteria andTopoAliasIsNull() {
+            addCriterion("topo_alias is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasIsNotNull() {
+            addCriterion("topo_alias is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasEqualTo(String value) {
+            addCriterion("topo_alias =", value, "topoAlias");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasNotEqualTo(String value) {
+            addCriterion("topo_alias <>", value, "topoAlias");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasGreaterThan(String value) {
+            addCriterion("topo_alias >", value, "topoAlias");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasGreaterThanOrEqualTo(String value) {
+            addCriterion("topo_alias >=", value, "topoAlias");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasLessThan(String value) {
+            addCriterion("topo_alias <", value, "topoAlias");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasLessThanOrEqualTo(String value) {
+            addCriterion("topo_alias <=", value, "topoAlias");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasLike(String value) {
+            addCriterion("topo_alias like", value, "topoAlias");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasNotLike(String value) {
+            addCriterion("topo_alias not like", value, "topoAlias");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasIn(List<String> values) {
+            addCriterion("topo_alias in", values, "topoAlias");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasNotIn(List<String> values) {
+            addCriterion("topo_alias not in", values, "topoAlias");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasBetween(String value1, String value2) {
+            addCriterion("topo_alias between", value1, value2, "topoAlias");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopoAliasNotBetween(String value1, String value2) {
+            addCriterion("topo_alias not between", value1, value2, "topoAlias");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

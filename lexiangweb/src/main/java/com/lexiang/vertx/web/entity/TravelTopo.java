@@ -15,6 +15,8 @@ public class TravelTopo extends TravelTopoKey {
 
     private String rangeOfDriving;
 
+    private String topoAlias;
+
     public Integer getProductId() {
         return productId;
     }
@@ -69,5 +71,13 @@ public class TravelTopo extends TravelTopoKey {
 
     public void setRangeOfDriving(String rangeOfDriving) {
         this.rangeOfDriving = rangeOfDriving == null ? null : rangeOfDriving.trim();
+    }
+
+    public String getTopoAlias() {
+        return topoAlias;
+    }
+
+    public void setTopoAlias(String topoAlias) {
+        this.topoAlias = topoAlias == null ? null : topoAlias.trim();
     }
 }
