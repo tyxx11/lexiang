@@ -26,8 +26,8 @@
 
         <!-- 必须要有的，使用这个配置链接数据库 @TODO:是否可以扩展 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://xxx6/lexiang" userId="root" password="xxx">        </jdbcConnection>
-
+                        connectionURL="jdbc:mysql://xxxx:3306/lexiang" userId="root" password="xxxx">
+        </jdbcConnection>
         <!-- java类型处理器 用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl； 注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和
             NUMERIC数据类型； -->
         <javaTypeResolver
@@ -114,7 +114,11 @@
             <property name="constructorBased" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>-->
-        <table tableName="customer_story">
+     <!--   <table tableName="customer_story">
+            <property name="constructorBased" value="false" />
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+        <table tableName="customer_story_detail">
             <property name="constructorBased" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>

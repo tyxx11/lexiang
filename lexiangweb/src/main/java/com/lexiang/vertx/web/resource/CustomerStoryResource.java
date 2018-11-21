@@ -1,6 +1,7 @@
 package com.lexiang.vertx.web.resource;
 
 import com.alibaba.fastjson.JSON;
+import com.lexiang.vertx.web.entity.CustomerStoryDetailWithBLOBs;
 import com.lexiang.vertx.web.entity.CustomerStoryWithBLOBs;
 import com.lexiang.vertx.web.service.CustomStoryService;
 import io.vertx.core.json.JsonObject;
@@ -42,5 +43,25 @@ public class CustomerStoryResource {
     public void getAll(RoutingContext ctx){
         List<CustomerStoryWithBLOBs> customerStoryWithBLOBsList = customStoryService.getAll();
         ctx.response().putHeader("content-type", "application/json; charset=utf-8").end(JSON.toJSONString(customerStoryWithBLOBsList));
+    }
+
+    @GET
+    @Path("detail/:customerStoryId")
+    public void getDetail(RoutingContext ctx){
+        int storyId = Integer.parseInt(ctx.request().getParam("customerStoryId"));
+        ctx.response().putHeader("content-type", "application/json; charset=utf-8").end(JSON.toJSONString(customStoryService.getDetail(storyId)));
+    }
+
+    @POST
+    @Path("detail")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void createDetail(RoutingContext ctx) {
+        JsonObject json = ctx.getBodyAsJson();
+        CustomerStoryDetailWithBLOBs story = new CustomerStoryDetailWithBLOBs();
+        story.setDivCustomerDetail(json.getString("div"));
+        story.setPicAddress(json.getString("pic_address"));
+        story.setCustomerStoryId(json.getInteger("customer_story_id"));
+        customStoryService.saveDetail(story);
+        ctx.response().end("save successed");
     }
 }

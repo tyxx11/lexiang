@@ -150,3 +150,14 @@ create table customer_story(
   time_stamp timestamp,
   status int
 )DEFAULT CHARSET=utf8;
+
+
+create table customer_story_detail(
+  id int primary key auto_increment,
+  pic_address varchar(128),
+  div_customer_detail text,
+  customer_story_id int,
+  time_stamp timestamp,
+  status int,
+  foreign key(customer_story_id) references customer_story(id)
+)DEFAULT CHARSET=utf8;

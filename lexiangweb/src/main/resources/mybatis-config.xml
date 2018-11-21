@@ -32,6 +32,7 @@
         <mapper class="com.lexiang.vertx.web.mapper.ProductDetailMapper"/>
         <mapper class="com.lexiang.vertx.web.mapper.ReadBeforeTravelTagMapper"/>
         <mapper class="com.lexiang.vertx.web.mapper.CustomerStoryMapper"/>
+        <mapper class="com.lexiang.vertx.web.mapper.CustomerStoryDetailMapper"/>
 
     </mappers>
 </configuration>
