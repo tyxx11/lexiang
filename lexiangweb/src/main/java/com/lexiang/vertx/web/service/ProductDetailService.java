@@ -72,7 +72,7 @@ public class ProductDetailService {
             readBeforeTagIds.add(readBeforeTravel.getTagId());
         }
         readBeforeTravelExample.createCriteria().andIdIn(readBeforeTagIds);
-        result.put("readBeforeTravel",readBeforeTravelTagMapper.selectByExample(readBeforeTravelTagExample));
+        result.put("readBeforeTravel",readBeforeTravelTagMapper.selectByExampleWithBLOBs(readBeforeTravelTagExample));
 
         return result;
 
