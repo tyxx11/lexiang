@@ -63,4 +63,17 @@ public class ProductService {
         return lunboMapper.selectByExample(example);
     }
 
+    public List<LexiangProductWithBLOBs> getSimilarProduct(int productId, int count){
+        LexiangProductExample example = new LexiangProductExample();
+        LexiangProductKey key = new LexiangProductKey();
+        key.setId(productId);
+        LexiangProduct product  = productMapper.selectByPrimaryKey(key);
+        example.createCriteria().andStatusEqualTo(0).andTravalTypeEqualTo(product.getTravalType());
+        List<LexiangProductWithBLOBs> list = productMapper.selectByExampleWithBLOBs(example);
+        if (list.size() > count){
+            return list.subList(0, count);
+        }
+        return list;
+    }
+
 }
