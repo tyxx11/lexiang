@@ -160,6 +160,15 @@ public class ProductResource {
         ctx.response().putHeader("content-type", "application/json; charset=utf-8").end(JSON.toJSONString(lexiangProductList));
     }
 
+    @POST
+    @Path("similar")
+    public void getProductSimilar(RoutingContext ctx) {
+        JsonObject json = ctx.getBodyAsJson();
+        List<LexiangProductWithBLOBs> lexiangProductList = productService
+                .getSimilarProduct(json.getInteger("productId"),json.getInteger("count"));
+        ctx.response().putHeader("content-type", "application/json; charset=utf-8").end(JSON.toJSONString(lexiangProductList));
+    }
+
     @GET
     @Path("productShow")
     public void getProductShowPage(RoutingContext ctx) {

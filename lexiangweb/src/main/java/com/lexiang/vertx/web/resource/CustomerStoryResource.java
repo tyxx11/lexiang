@@ -64,4 +64,19 @@ public class CustomerStoryResource {
         customStoryService.saveDetail(story);
         ctx.response().end("save successed");
     }
+
+    @POST
+    @Path("detail/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updateDetail(RoutingContext ctx) {
+        JsonObject json = ctx.getBodyAsJson();
+        CustomerStoryDetailWithBLOBs story = new CustomerStoryDetailWithBLOBs();
+        story.setDivCustomerDetail(json.getString("div"));
+        story.setPicAddress(json.getString("pic_address"));
+        story.setCustomerStoryId(json.getInteger("customer_story_id"));
+        story.setId(json.getInteger("id"));
+        customStoryService.updateDetail(story);
+        ctx.response().end("update successed");
+    }
+
 }
