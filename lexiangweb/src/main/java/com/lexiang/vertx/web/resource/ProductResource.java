@@ -14,6 +14,9 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.FileUpload;
 import io.vertx.ext.web.RoutingContext;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.guice.transactional.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,6 +78,7 @@ public class ProductResource {
 
     @POST
     @Path("detail")
+    @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     public void createDetail(RoutingContext ctx) {
         JsonObject json = ctx.getBodyAsJson();
@@ -107,8 +111,8 @@ public class ProductResource {
             travelTopoWithBLOBs.setAccommodation(String.valueOf(map.get("accommodation").toString()));
             travelTopoWithBLOBs.setProductId(productId);
             travelTopoWithBLOBs.setPhotoAddress(String.valueOf(map.get("photoAddress").toString()));
-            travelTopoWithBLOBs.setRangeOfDriving(String.valueOf(map.get("rangeOfDriving").toString()));
-            travelTopoWithBLOBs.setRangeOfDriving(String.valueOf(map.get("travelDate").toString()));
+            travelTopoWithBLOBs.setRangeOfDriving(String.valueOf(String.valueOf(map.get("rangeOfDriving"))));
+            travelTopoWithBLOBs.setTravelDate(String.valueOf(String.valueOf(map.get("travelDate"))));
             productDetailService.saveTravelTopo(travelTopoWithBLOBs);
         }
 
@@ -132,15 +136,18 @@ public class ProductResource {
             productDetailService.savePriceContainTags(productId,priceTag);
         }
 
-        List<Map<String,Object>> priceNotContainTagList = Jsons.objectFromJSONStr(
-                json.getValue("price_not_contain_tags").toString(), List.class);
-        for (Map<String,Object> map : priceNotContainTagList){
-            PriceTag priceTag = new PriceTag();
-            priceTag.setTagDescribe(String.valueOf(map.get("tagDescribe")));
-            priceTag.setTagName(String.valueOf(map.get("tagName")));
-            priceTag.setTagPhoto(String.valueOf(map.get("tagPhoto")));
-            productDetailService.savePriceNotContainTags(productId,priceTag);
+        if (json.getValue("price_not_contain_tags") != null){
+            List<Map<String,Object>> priceNotContainTagList = Jsons.objectFromJSONStr(
+                    json.getValue("price_not_contain_tags").toString(), List.class);
+            for (Map<String,Object> map : priceNotContainTagList){
+                PriceTag priceTag = new PriceTag();
+                priceTag.setTagDescribe(String.valueOf(map.get("tagDescribe")));
+                priceTag.setTagName(String.valueOf(map.get("tagName")));
+                priceTag.setTagPhoto(String.valueOf(map.get("tagPhoto")));
+                productDetailService.savePriceNotContainTags(productId,priceTag);
+            }
         }
+
         ctx.response().end("save ok;");
     }
 
