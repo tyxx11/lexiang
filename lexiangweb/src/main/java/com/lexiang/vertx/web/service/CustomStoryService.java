@@ -53,6 +53,14 @@ public class CustomStoryService {
     public void saveDetail(CustomerStoryDetailWithBLOBs story){
         CustomerStoryDetailExample example  = new CustomerStoryDetailExample();
         story.setTimeStamp(new Date());
+        story.setStatus(0);
+        customerStoryDetailMapper.insertSelective(story);
+
+    }
+
+    public void updateDetail(CustomerStoryDetailWithBLOBs story){
+        CustomerStoryDetailExample example  = new CustomerStoryDetailExample();
+        story.setTimeStamp(new Date());
         if (story.getId() != null){
             example.createCriteria().andIdEqualTo(story.getId());
             if (customerStoryDetailMapper.countByExample(example) != 0){

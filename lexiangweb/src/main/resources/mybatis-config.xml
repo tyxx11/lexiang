@@ -8,9 +8,14 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
+<!--
                 <property name="url" value="jdbc:mysql://xxx/lexiang?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
+-->
+                <property name="url" value="jdbc:mysql://47.106.250.195:3306/lexiang?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
                 <property name="username" value="root"/>
-                <property name="password" value="xxxx"/>
+      <!--          <property name="password" value="xxxx"/>-->
+
+                <property name="password" value="J2EaX#a:fCu4"/>
             </dataSource>
         </environment>
     </environments>
