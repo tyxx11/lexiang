@@ -48,7 +48,7 @@ public class HomePageService {
         lunbo.setTimeStamp(new Date());
         LunboExample example = new LunboExample();
         example.createCriteria().andPhotoAddressEqualTo(lunbo.getPhotoAddress()).andAttributeEqualTo(lunbo.getAttribute()).andStatusEqualTo(0);
-        if (lunboMapper.countByExample(example) == 0){
+        if (lunbo.getId() == null && lunboMapper.countByExample(example) == 0){
             lunbo.setStatus(0);
             lunboMapper.insert(lunbo);
         } else {
