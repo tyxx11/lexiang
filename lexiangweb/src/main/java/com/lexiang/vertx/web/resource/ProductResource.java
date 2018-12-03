@@ -59,8 +59,16 @@ public class ProductResource {
         if (json.getInteger("status") != null){
             product.setStatus(json.getInteger("status"));
         }
-        int result = productService.save(product);
-        ctx.response().end(String.valueOf(result));
+        String result;
+        if (json.getValue("id") != null){
+            product.setId(json.getInteger("id"));
+            productService.update(product);
+            result = "update ok!";
+        } else {
+            productService.save(product);
+            result = "save ok!";
+        }
+        ctx.response().end(result);
     }
 
     @POST
