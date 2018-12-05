@@ -17,6 +17,9 @@
                 <property name="password" value="xxxx"/>
 -->
                 <property name="password" value="J2EaX#a:fCu4"/>
+                <property name="poolPingQuery" value="SELECT NOW()" />
+                <property name="poolPingEnabled" value="true" />
+
             </dataSource>
         </environment>
     </environments>

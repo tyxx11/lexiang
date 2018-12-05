@@ -90,6 +90,9 @@ public class HomePageResource {
             Lunbo lunbo = new Lunbo();
             lunbo.setAttribute((Integer) map.get("attribute"));
             lunbo.setPhotoAddress(map.get("photoAddress").toString());
+            if(map.get("id") != null){
+                lunbo.setId(Integer.valueOf(map.get("id").toString()));
+            }
             if (map.get("status") != null) {
                 lunbo.setStatus((Integer) map.get("status"));
             }
