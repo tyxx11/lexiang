@@ -155,6 +155,9 @@ public class ProductResource {
                     json.getValue("price_contain_tags").toString(), List.class);
             for (Map<String, Object> map : priceTagList) {
                 PriceTag priceTag = new PriceTag();
+                if(map.get("id") != null){
+                    priceTag.setId(Integer.parseInt(map.get("id").toString()));
+                }
                 priceTag.setTagDescribe(String.valueOf(map.get("tagDescribe")));
                 priceTag.setTagName(String.valueOf(map.get("tagName")));
                 priceTag.setTagPhoto(String.valueOf(map.get("tagPhoto")));
@@ -168,6 +171,9 @@ public class ProductResource {
                     json.getValue("price_not_contain_tags").toString(), List.class);
             for (Map<String, Object> map : priceNotContainTagList) {
                 PriceTag priceTag = new PriceTag();
+                if(map.get("id") != null){
+                    priceTag.setId(Integer.parseInt(map.get("id").toString()));
+                }
                 priceTag.setTagDescribe(String.valueOf(map.get("tagDescribe")));
                 priceTag.setTagName(String.valueOf(map.get("tagName")));
                 priceTag.setTagPhoto(String.valueOf(map.get("tagPhoto")));

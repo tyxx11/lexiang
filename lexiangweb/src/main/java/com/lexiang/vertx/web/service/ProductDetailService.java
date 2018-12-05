@@ -132,23 +132,21 @@ public class ProductDetailService {
 
     public void savePriceContainTags(int productId, PriceTag priceTag){
         PriceTagExample example = new PriceTagExample();
-        int id;
         if (priceTag.getId() != null){
             example.createCriteria().andIdEqualTo(priceTag.getId());
             if (priceTagMapper.countByExample(example) != 0){
                 priceTagMapper.updateByPrimaryKeySelective(priceTag);
-                id = priceTag.getId();
             } else {
-                id = priceTagMapper.insertSelective(priceTag);
+                priceTagMapper.insertSelective(priceTag);
             }
         } else {
-            id = priceTagMapper.insertSelective(priceTag);
+            priceTagMapper.insertSelective(priceTag);
         }
         PriceContainExample priceContainExample = new PriceContainExample();
         PriceContain priceContain = new PriceContain();
         priceContain.setProductId(productId);
-        priceContain.setTagId(id);
-        priceContainExample.createCriteria().andProductIdEqualTo(productId).andTagIdEqualTo(id);
+        priceContain.setTagId(priceTag.getId());
+        priceContainExample.createCriteria().andProductIdEqualTo(productId).andTagIdEqualTo(priceTag.getId());
         if (priceContainMapper.countByExample(priceContainExample) != 0){
             priceContainMapper.updateByExampleSelective(priceContain,priceContainExample);
         } else {
@@ -158,24 +156,23 @@ public class ProductDetailService {
 
     public void savePriceNotContainTags(int productId, PriceTag priceTag){
         PriceTagExample example = new PriceTagExample();
-        int id;
         if (priceTag.getId() != null){
             example.createCriteria().andIdEqualTo(priceTag.getId());
             if (priceTagMapper.countByExample(example) != 0){
                 priceTagMapper.updateByPrimaryKeySelective(priceTag);
-                id = priceTag.getId();
+                priceTag.getId();
             } else {
-                id = priceTagMapper.insertSelective(priceTag);
+                 priceTagMapper.insertSelective(priceTag);
             }
         } else {
-            id = priceTagMapper.insertSelective(priceTag);
+            priceTagMapper.insertSelective(priceTag);
         }
 
         PriceNotContainExample priceContainExample = new PriceNotContainExample();
         PriceNotContain priceNotContain = new PriceNotContain();
         priceNotContain.setProductId(productId);
-        priceNotContain.setTagId(id);
-        priceContainExample.createCriteria().andProductIdEqualTo(productId).andTagIdEqualTo(id);
+        priceNotContain.setTagId(priceTag.getId());
+        priceContainExample.createCriteria().andProductIdEqualTo(productId).andTagIdEqualTo(priceTag.getId());
         if (priceNotContainMapper.countByExample(priceContainExample) != 0){
             priceNotContainMapper.updateByExampleSelective(priceNotContain,priceContainExample);
         } else {
