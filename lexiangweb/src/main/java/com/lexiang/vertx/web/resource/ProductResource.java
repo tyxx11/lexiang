@@ -56,20 +56,28 @@ public class ProductResource {
         product.setTitle(json.getString("title"));
         product.setPhotoPath(json.getString("photo_path"));
         product.setTravalType(json.getInteger("traval_type"));
-        if (json.getInteger("status") != null){
+        if (json.getInteger("status") != null) {
             product.setStatus(json.getInteger("status"));
         }
-        int result = productService.save(product);
-        ctx.response().end(String.valueOf(result));
+        String result;
+        if (json.getValue("id") != null) {
+            product.setId(json.getInteger("id"));
+            productService.update(product);
+            result = "update ok!";
+        } else {
+            productService.save(product);
+            result = "save ok!";
+        }
+        ctx.response().end(result);
     }
 
     @POST
     @Path("fix")
-    public void fix(RoutingContext ctx){
+    public void fix(RoutingContext ctx) {
         List<LexiangProductWithBLOBs> lexiangProductList = productService.getAll();
-        for (LexiangProductWithBLOBs product : lexiangProductList){
+        for (LexiangProductWithBLOBs product : lexiangProductList) {
             String path = product.getPhotoPath();
-            path = path.replaceAll("/home/lexiang","http://47.106.250.195:80");
+            path = path.replaceAll("/home/lexiang", "http://47.106.250.195:80");
             product.setPhotoPath(path);
             productService.update(product);
         }
@@ -84,67 +92,86 @@ public class ProductResource {
         JsonObject json = ctx.getBodyAsJson();
         ProductDetailWithBLOBs detailWithBLOBs = new ProductDetailWithBLOBs();
         JsonObject productDetail = json.getJsonObject("product_detail");
-        int productId = productDetail.getInteger("product_id");
-        detailWithBLOBs.setProductId(productId);
-        detailWithBLOBs.setDivBaomingwuyou(productDetail.getString("baomingwuyou"));
-        detailWithBLOBs.setDivCancelOrder(productDetail.getString("cancel_order"));
-        detailWithBLOBs.setDivCommonProblems(productDetail.getString("common_problem"));
-        detailWithBLOBs.setDivJiagewuyou(productDetail.getString("jiagewuyou"));
-        detailWithBLOBs.setDivTiyanwuyou(productDetail.getString("tiyanwuyou"));
-        detailWithBLOBs.setDivExplain(productDetail.getString("div_explain"));
-        detailWithBLOBs.setDivTravelCharacteristic(productDetail.getString("div_travel_character"));
-        detailWithBLOBs.setDisbandedPlace(productDetail.getString("disbanded_place"));
-        detailWithBLOBs.setGatheringPlace(productDetail.getString("gathering_place"));
-        detailWithBLOBs.setSignUpPeople(productDetail.getString("signup_people"));
-        detailWithBLOBs.setTeamMemberUpperLimit(productDetail.getInteger("team_member_upper_limit"));
-
-        productDetailService.saveProductDetail(detailWithBLOBs);
-
-        List<Map<String,Object>> travelTopoList = Jsons.objectFromJSONStr(json.getValue("travel_topo").toString(), List.class);
-        for (Map<String,Object> map : travelTopoList){
-            TravelTopoWithBLOBs travelTopoWithBLOBs = new TravelTopoWithBLOBs();
-            travelTopoWithBLOBs.setDiv1(map.get("div1").toString());
-            travelTopoWithBLOBs.setDiv2(map.get("div2").toString());
-            travelTopoWithBLOBs.setDiv3(map.get("div3").toString());
-            travelTopoWithBLOBs.setName(map.get("name").toString());
-            travelTopoWithBLOBs.setFood(String.valueOf(map.get("food")));
-            travelTopoWithBLOBs.setAccommodation(String.valueOf(map.get("accommodation").toString()));
-            travelTopoWithBLOBs.setProductId(productId);
-            travelTopoWithBLOBs.setPhotoAddress(String.valueOf(map.get("photoAddress").toString()));
-            travelTopoWithBLOBs.setRangeOfDriving(String.valueOf(String.valueOf(map.get("rangeOfDriving"))));
-            travelTopoWithBLOBs.setTravelDate(String.valueOf(String.valueOf(map.get("travelDate"))));
-            productDetailService.saveTravelTopo(travelTopoWithBLOBs);
+        int productId = json.getInteger("product_id");
+        if (productDetail != null){
+            detailWithBLOBs.setProductId(productId);
+            detailWithBLOBs.setDivBaomingwuyou(productDetail.getString("baomingwuyou"));
+            detailWithBLOBs.setDivCancelOrder(productDetail.getString("cancel_order"));
+            detailWithBLOBs.setDivCommonProblems(productDetail.getString("common_problem"));
+            detailWithBLOBs.setDivJiagewuyou(productDetail.getString("jiagewuyou"));
+            detailWithBLOBs.setDivTiyanwuyou(productDetail.getString("tiyanwuyou"));
+            detailWithBLOBs.setDivExplain(productDetail.getString("div_explain"));
+            detailWithBLOBs.setDivTravelCharacteristic(productDetail.getString("div_travel_character"));
+            detailWithBLOBs.setDisbandedPlace(productDetail.getString("disbanded_place"));
+            detailWithBLOBs.setGatheringPlace(productDetail.getString("gathering_place"));
+            detailWithBLOBs.setSignUpPeople(productDetail.getString("signup_people"));
+            detailWithBLOBs.setTeamMemberUpperLimit(productDetail.getInteger("team_member_upper_limit"));
+            productDetailService.saveProductDetail(detailWithBLOBs);
         }
 
-        List<Map<String,Object>> readBeforeTravelTagList = Jsons.objectFromJSONStr(
-                json.getValue("read_before_travel_tags").toString(), List.class);
-        for(Map<String,Object> map : readBeforeTravelTagList){
-            ReadBeforeTravelTagWithBLOBs readBeforeTravelTag = new ReadBeforeTravelTagWithBLOBs();
-            readBeforeTravelTag.setTagDescribe(String.valueOf(map.get("tagDescribe")));
-            readBeforeTravelTag.setTagName(String.valueOf(map.get("tagName")));
-            productDetailService.saveReadBeforeTravelTags(productId,readBeforeTravelTag);
+        if (json.getValue("travel_topo") != null) {
+            List<Map<String, Object>> travelTopoList = Jsons.objectFromJSONStr(json.getValue("travel_topo").toString(), List.class);
+            for (Map<String, Object> map : travelTopoList) {
+                TravelTopoWithBLOBs travelTopoWithBLOBs = new TravelTopoWithBLOBs();
+                if (map.get("id") != null){
+                    travelTopoWithBLOBs.setId(Integer.valueOf(map.get("id").toString()));
+                }
+                travelTopoWithBLOBs.setDiv1(String.valueOf(map.get("div1")));
+                if (map.get("div2") == null){
+                    travelTopoWithBLOBs.setDiv2("<div></div>");
+                } else {
+                    travelTopoWithBLOBs.setDiv2(map.get("div2").toString());
+                }
+                if (map.get("div3") == null){
+                    travelTopoWithBLOBs.setDiv3("<div></div>");
+                } else {
+                    travelTopoWithBLOBs.setDiv3(map.get("div3").toString());
+                }
+                travelTopoWithBLOBs.setName(map.get("name").toString());
+                travelTopoWithBLOBs.setFood(String.valueOf(map.get("food")));
+                travelTopoWithBLOBs.setAccommodation(String.valueOf(map.get("accommodation")));
+                travelTopoWithBLOBs.setProductId(productId);
+                travelTopoWithBLOBs.setPhotoAddress(String.valueOf(map.get("photoAddress")));
+                travelTopoWithBLOBs.setRangeOfDriving(String.valueOf(map.get("rangeOfDriving")));
+                travelTopoWithBLOBs.setTravelDate(String.valueOf(map.get("travelDate")));
+                travelTopoWithBLOBs.setTopoAlias(String.valueOf(map.get("topoAlias")));
+                productDetailService.saveTravelTopo(travelTopoWithBLOBs);
+            }
         }
 
-        List<Map<String,Object>> priceTagList = Jsons.objectFromJSONStr(
-                json.getValue("price_contain_tags").toString(), List.class);
-        for (Map<String,Object> map : priceTagList){
-            PriceTag priceTag = new PriceTag();
-            priceTag.setTagDescribe(String.valueOf(map.get("tagDescribe")));
-            priceTag.setTagName(String.valueOf(map.get("tagName")));
-            priceTag.setTagPhoto(String.valueOf(map.get("tagPhoto")));
-
-            productDetailService.savePriceContainTags(productId,priceTag);
+        if (json.getValue("read_before_travel_tags") != null) {
+            List<Map<String, Object>> readBeforeTravelTagList = Jsons.objectFromJSONStr(
+                    json.getValue("read_before_travel_tags").toString(), List.class);
+            for (Map<String, Object> map : readBeforeTravelTagList) {
+                ReadBeforeTravelTagWithBLOBs readBeforeTravelTag = new ReadBeforeTravelTagWithBLOBs();
+                readBeforeTravelTag.setTagDescribe(String.valueOf(map.get("tagDescribe")));
+                readBeforeTravelTag.setTagName(String.valueOf(map.get("tagName")));
+                productDetailService.saveReadBeforeTravelTags(productId, readBeforeTravelTag);
+            }
         }
 
-        if (json.getValue("price_not_contain_tags") != null){
-            List<Map<String,Object>> priceNotContainTagList = Jsons.objectFromJSONStr(
-                    json.getValue("price_not_contain_tags").toString(), List.class);
-            for (Map<String,Object> map : priceNotContainTagList){
+        if (json.getValue("price_contain_tags") != null) {
+            List<Map<String, Object>> priceTagList = Jsons.objectFromJSONStr(
+                    json.getValue("price_contain_tags").toString(), List.class);
+            for (Map<String, Object> map : priceTagList) {
                 PriceTag priceTag = new PriceTag();
                 priceTag.setTagDescribe(String.valueOf(map.get("tagDescribe")));
                 priceTag.setTagName(String.valueOf(map.get("tagName")));
                 priceTag.setTagPhoto(String.valueOf(map.get("tagPhoto")));
-                productDetailService.savePriceNotContainTags(productId,priceTag);
+
+                productDetailService.savePriceContainTags(productId, priceTag);
+            }
+        }
+
+        if (json.getValue("price_not_contain_tags") != null) {
+            List<Map<String, Object>> priceNotContainTagList = Jsons.objectFromJSONStr(
+                    json.getValue("price_not_contain_tags").toString(), List.class);
+            for (Map<String, Object> map : priceNotContainTagList) {
+                PriceTag priceTag = new PriceTag();
+                priceTag.setTagDescribe(String.valueOf(map.get("tagDescribe")));
+                priceTag.setTagName(String.valueOf(map.get("tagName")));
+                priceTag.setTagPhoto(String.valueOf(map.get("tagPhoto")));
+                productDetailService.savePriceNotContainTags(productId, priceTag);
             }
         }
 
@@ -153,10 +180,10 @@ public class ProductResource {
 
     @GET
     @Path("detail/:productId")
-    public void getDetail(RoutingContext ctx){
+    public void getDetail(RoutingContext ctx) {
         int productId = Integer.parseInt(ctx.request().getParam("productId"));
-        Map<String,Object> map = productDetailService.getProductDetail(productId);
-        map.put("productIntro",productService.getById(productId));
+        Map<String, Object> map = productDetailService.getProductDetail(productId);
+        map.put("productIntro", productService.getById(productId));
         ctx.response().putHeader("content-type", "application/json; charset=utf-8").end(JSON.toJSONString(map));
     }
 
@@ -172,7 +199,7 @@ public class ProductResource {
     public void getProductSimilar(RoutingContext ctx) {
         JsonObject json = ctx.getBodyAsJson();
         List<LexiangProductWithBLOBs> lexiangProductList = productService
-                .getSimilarProduct(json.getInteger("productId"),json.getInteger("count"));
+                .getSimilarProduct(json.getInteger("productId"), json.getInteger("count"));
         ctx.response().putHeader("content-type", "application/json; charset=utf-8").end(JSON.toJSONString(lexiangProductList));
     }
 
@@ -181,7 +208,7 @@ public class ProductResource {
     public void getProductShowPage(RoutingContext ctx) {
         List<LexiangProductWithBLOBs> lexiangProductList = productService.getAll();
         //Map<String,Object> map =homePageService.getNavigatorAndSysTemSetting();
-        Map<String,Object> map = Maps.newHashMap();
+        Map<String, Object> map = Maps.newHashMap();
         map.put("products", lexiangProductList);
         List<Lunbo> lunboList = productService.getProductShowLunbo();
         map.put("lunbos", lunboList);
@@ -189,11 +216,10 @@ public class ProductResource {
     }
 
 
-
     @POST
     @Path("getPic")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void getPhotos(RoutingContext ctx){
+    public void getPhotos(RoutingContext ctx) {
         JsonObject json = ctx.getBodyAsJson();
         String file = json.getString("filePath");
         ctx.response().sendFile(file);
@@ -201,7 +227,7 @@ public class ProductResource {
 
     @DELETE
     @Path("deleteProduct/:id")
-    public void deleteProduct(RoutingContext ctx){
+    public void deleteProduct(RoutingContext ctx) {
         productService.deteleProduct(Integer.parseInt(ctx.request().getParam("id")));
         ctx.response().end("delete ok!");
     }
