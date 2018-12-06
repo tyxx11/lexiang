@@ -49,8 +49,10 @@ public class ProductDetailService {
         for (PriceContain priceContain : priceContainList){
             priceContainIds.add(priceContain.getTagId());
         }
-        priceTagExample.createCriteria().andIdIn(priceContainIds);
-        result.put("priceContain",priceTagMapper.selectByExample(priceTagExample));
+        if (priceContainIds.size() != 0){
+            priceTagExample.createCriteria().andIdIn(priceContainIds);
+            result.put("priceContain",priceTagMapper.selectByExample(priceTagExample));
+        }
         //deal with price not contain
         PriceNotContainExample priceNotContainExample = new PriceNotContainExample();
         priceContainExample.createCriteria().andProductIdEqualTo(productId);
@@ -60,8 +62,10 @@ public class ProductDetailService {
         for (PriceNotContain priceNotContain : priceNotContainList){
             priceNotContainIds.add(priceNotContain.getTagId());
         }
-        priceTagExample.createCriteria().andIdIn(priceNotContainIds);
-        result.put("priceNotContain", priceTagMapper.selectByExample(priceTagExample));
+        if (priceNotContainIds.size() != 0){
+            priceTagExample.createCriteria().andIdIn(priceNotContainIds);
+            result.put("priceNotContain", priceTagMapper.selectByExample(priceTagExample));
+        }
         //read before travel
         ReadBeforeTravelExample readBeforeTravelExample = new ReadBeforeTravelExample();
         readBeforeTravelExample.createCriteria().andProductIdEqualTo(productId);
@@ -71,9 +75,10 @@ public class ProductDetailService {
         for (ReadBeforeTravel readBeforeTravel: readBeforeTravelList){
             readBeforeTagIds.add(readBeforeTravel.getTagId());
         }
-        readBeforeTravelExample.createCriteria().andIdIn(readBeforeTagIds);
-        result.put("readBeforeTravel",readBeforeTravelTagMapper.selectByExampleWithBLOBs(readBeforeTravelTagExample));
-
+        if (readBeforeTagIds.size() != 0){
+            readBeforeTravelExample.createCriteria().andIdIn(readBeforeTagIds);
+            result.put("readBeforeTravel",readBeforeTravelTagMapper.selectByExampleWithBLOBs(readBeforeTravelTagExample));
+        }
         return result;
 
     }

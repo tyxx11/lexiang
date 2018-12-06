@@ -94,6 +94,7 @@ public class ProductResource {
         JsonObject productDetail = json.getJsonObject("product_detail");
         int productId = json.getInteger("product_id");
         if (productDetail != null){
+            detailWithBLOBs.setId(productId);
             detailWithBLOBs.setProductId(productId);
             detailWithBLOBs.setDivBaomingwuyou(productDetail.getString("baomingwuyou"));
             detailWithBLOBs.setDivCancelOrder(productDetail.getString("cancel_order"));
