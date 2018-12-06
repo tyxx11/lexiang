@@ -39,6 +39,15 @@ public class ProductDetailService {
         TravelTopoExample travelTopoExample = new TravelTopoExample();
         travelTopoExample.createCriteria().andProductIdEqualTo(productId);
         List<TravelTopoWithBLOBs>  travelTopos = travelTopoMapper.selectByExampleWithBLOBs(travelTopoExample);
+        List<String> roadMap = Lists.newArrayList();
+        String lastPlace = null;
+        for (TravelTopoWithBLOBs topoWithBLOBs : travelTopos){
+            if (topoWithBLOBs.getTopoAlias() != null && !topoWithBLOBs.getTopoAlias().equals(lastPlace)){
+                roadMap.add(topoWithBLOBs.getTopoAlias());
+                lastPlace = topoWithBLOBs.getTopoAlias();
+            }
+        }
+        result.put("roadMap",roadMap);
         result.put("travelTopo",travelTopos);
         //deal with price contain
         PriceContainExample priceContainExample = new PriceContainExample();
