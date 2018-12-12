@@ -90,19 +90,19 @@
             <property name="constructorBased" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>-->
-<!--        <table tableName="home_page_content">
+     <!--   <table tableName="home_page_content">
             <property name="constructorBased" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
         <table tableName="system_setting">
             <property name="constructorBased" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>
+        </table>-->
         <table tableName="navigator">
             <property name="constructorBased" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
-        <table tableName="lunbo">
+      <!--  <table tableName="lunbo">
             <property name="constructorBased" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>-->
@@ -118,10 +118,10 @@
             <property name="constructorBased" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>-->
-        <table tableName="customer_story_detail">
+ <!--       <table tableName="customer_story_detail">
             <property name="constructorBased" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>
+        </table>-->
        <!-- <table tableName="product_comments">
             <property name="constructorBased" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>

@@ -13,6 +13,8 @@ public class Navigator extends NavigatorKey {
 
     private Integer status;
 
+    private String toName;
+
     public String getName() {
         return name;
     }
@@ -51,5 +53,13 @@ public class Navigator extends NavigatorKey {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getToName() {
+        return toName;
+    }
+
+    public void setToName(String toName) {
+        this.toName = toName == null ? null : toName.trim();
     }
 }

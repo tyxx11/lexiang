@@ -8,6 +8,7 @@
     <result column="attribute" property="attribute" jdbcType="INTEGER" />
     <result column="time_stamp" property="timeStamp" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="to_name" property="toName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, parent_name, attribute, time_stamp, status
+    id, name, parent_name, attribute, time_stamp, status, to_name
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lexiang.vertx.web.entity.NavigatorExample" >
     select
@@ -102,9 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.lexiang.vertx.web.entity.Navigator" useGeneratedKeys="true" keyProperty="id" >
     insert into navigator (name, parent_name, attribute, 
-      time_stamp, status)
+      time_stamp, status, to_name
+      )
     values (#{name,jdbcType=VARCHAR}, #{parentName,jdbcType=VARCHAR}, #{attribute,jdbcType=INTEGER}, 
-      #{timeStamp,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
+      #{timeStamp,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{toName,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.lexiang.vertx.web.entity.Navigator" useGeneratedKeys="true" keyProperty="id" >
     insert into navigator
@@ -124,6 +127,9 @@
       <if test="status != null" >
         status,
       </if>
+      <if test="toName != null" >
+        to_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="name != null" >
@@ -140,6 +146,9 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="toName != null" >
+        #{toName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -170,6 +179,9 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.toName != null" >
+        to_name = #{record.toName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -182,7 +194,8 @@
       parent_name = #{record.parentName,jdbcType=VARCHAR},
       attribute = #{record.attribute,jdbcType=INTEGER},
       time_stamp = #{record.timeStamp,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=INTEGER},
+      to_name = #{record.toName,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -205,6 +218,9 @@
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="toName != null" >
+        to_name = #{toName,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -214,7 +230,8 @@
       parent_name = #{parentName,jdbcType=VARCHAR},
       attribute = #{attribute,jdbcType=INTEGER},
       time_stamp = #{timeStamp,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      to_name = #{toName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

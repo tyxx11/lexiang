@@ -71,8 +71,14 @@ public class HomePageResource {
             if (map.get("parent_name") != null && navigator.getAttribute() == Commons.attribute_navigator_main) {
                 navigator.setParentName(map.get("parent_name").toString());
             }
+            if (map.get("to_name") != null) {
+                navigator.setToName(map.get("to_name").toString());
+            }
             if (map.get("status") != null) {
                 navigator.setStatus((Integer) map.get("status"));
+            }
+            if (map.get("id") != null){
+                navigator.setId(Integer.parseInt(map.get("id").toString()));
             }
             homePageService.upSertNavigator(navigator);
         }

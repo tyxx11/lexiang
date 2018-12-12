@@ -61,7 +61,8 @@ create table navigator(
   parent_name varchar(64),
   attribute int,
   time_stamp timestamp,
-  status int
+  status int,
+  to_name varchar(128)
 ) DEFAULT CHARSET=utf8;
 
 create table lunbo(
